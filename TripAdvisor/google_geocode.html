@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" 
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>My Geocode App</title>
+</head>
+<body>
+    <div class="container">
+        <h2 id="text-center">Enter Location: </h2>
+        <form  id="location-form">
+            <input type="text" id="location-input" class="form-control form-contol-lg">
+            <br>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+
+<div id="formatted-add"></div>
+<div id="address-components"></div>
+
+    </div>
+    <script>
+
+        //call geocode 
+        //geocode();
+
+        //get location form 
+        var location_form=document.getElementById('location-form');
+
+        //listen for submit 
+        location_form.addEventListener('submit',geocode);
+
+        function geocode(e){
+
+            e.preventDefault();
+            var location=document.getElementById('location-input');
+            axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+                params:{
+                    address:location,
+                    key:'AIzaSyDi5_TDLYlJC8d05X4fU8QE1mvwLV9LVz4'
+                }
+            
+
+            }).then(function(response){//the get returns a respone, then on that respone apply the function 
+                   //log full repsone 
+                   console.log(response);
+                   //formatted address
+                var formatted_add=response.data.results[0].formatted_address;
+                console.log(formatted_add);
+                var formattedAdd_output=`
+                <ul class="list-group">
+                <li class="list-group-item">${formatted_add}</li>
+                </ul> 
+                `;
+
+                //address components 
+                var add_component= response.data.results[0].address_components;
+                var add_comp_output='<ul class="list-group">';
+                for(var i=0;i<add_component.length;i++){
+                    add_comp_output+=`
+                    <li class="list-group-item"><strong>${add_component[i].types[0]}</strong>: ${add_component[i].long_name}</li>
+                    
+                    `;
+                }
+
+                add_comp_output+='</ul>';
+                //output to app 
+                document.getElementById('formatted-add').innerHTML=formattedAdd_output;
+                document.getElementById('address-components').innerHTML=add_comp_output;
+
+            }).catch(function(error){
+                console.log(error );
+            });
+        }
+        
+        </script> 
+
+    
+</body>
+</html>
