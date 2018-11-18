@@ -1,7 +1,7 @@
 //create component called CurrentLocation where all functionality to pick browsers location lies 
 import React from 'react'
 import ReactDOM from 'react-dom'
-
+import Geocode from 'react-geocode'
 
 const mapStyles={
     map:{
@@ -11,17 +11,22 @@ const mapStyles={
     }
 };
 
+Geocode.setApiKey('AIzaSyD-a_aMfM44H43DL1gkBccsYjcYgZTZWQk');
+
 export class CurrentLocation extends React.Component{
     constructor(props){
         super(props);//make it stateful
-        const {lat,lng}=this.props.initialCenter;
+        const {lat,lng,name}=this.props.initialCenter;
         this.state={
             currentLocation:{
                 lat: lat,
-                lng:lng
-            }
+                lng:lng,
+                name:name
+            },
+            showingInfoWindow:false
         };
     }
+ 
     componentDidMount(){
         if(this.props.centerAroundCurrentLocation){
             if(navigator && navigator.geolocation){
@@ -30,11 +35,20 @@ export class CurrentLocation extends React.Component{
                     this.setState({
                         currentLocation:{
                             lat: coords.latitude,
-                            lng:coords.longitude
+                            lng:coords.longitude,
+                            name_loc:  Geocode.fromLatLng(coords.latitude,coords.longitude).then(
+                                response=>{
+                                    this.state.currentLocation.name_loc=response.results[0].formatted_address;   
+                                },
+                                error =>{
+                                    console.log(error);
+                                }
+                            )
 
                         }
                     });
                 });
+                
             }
         }
         this.loadMap();
@@ -76,8 +90,8 @@ export class CurrentLocation extends React.Component{
             const node=ReactDOM.findDOMNode(mapRef);
 
             let{zoom}=this.props;
-            const{lat,lng}=this.state.currentLocation;
-            const center= new maps.LatLng(lat,lng);
+            const{lat,lng,name}=this.state.currentLocation;
+            const center= new maps.LatLng(lat,lng,name);
             const mapConfig=Object.assign(
                 {},
                 {
@@ -124,8 +138,9 @@ CurrentLocation.defaultProps={
     zoom:20,
     initialCenter:{
         lat:40.723839,
-        lng: -104.105515
+        lng: -104.105515,
+        name:'hey'
     },
     centerAroundCurrentLocation:false,
-    visible:true
+    visible:false
 };
