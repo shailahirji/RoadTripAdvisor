@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 //import { Map, GoogleApiWrapper } from 'google-maps-react';
 import { Map, GoogleApiWrapper, InfoWindow, Marker } from "google-maps-react";
-
+import { Layout, Header, Navigation, Drawer, Content } from "react-mdl";
 import CurrentLocation from "./Map";
 
 const mapStyles = {
@@ -56,6 +56,8 @@ export class MapContainer extends React.Component {
       );
     }
     return (
+      <div>
+      <Layout>
       <CurrentLocation
         centerAroundCurrentLocation
         google={this.props.google} //placing the map conponent inside the container
@@ -69,6 +71,8 @@ export class MapContainer extends React.Component {
           <div>{show_name}</div>
         </InfoWindow>
       </CurrentLocation>
+      </Layout>
+      </div>
     );
   }
 }
