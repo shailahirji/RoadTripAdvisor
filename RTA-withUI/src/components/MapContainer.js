@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-//import { Map, GoogleApiWrapper } from 'google-maps-react';
-import { Map, GoogleApiWrapper, InfoWindow, Marker } from "google-maps-react";
-import { Layout, Header, Navigation, Drawer, Content } from "react-mdl";
-import CurrentLocation from "./Map";
+import { GoogleApiWrapper, InfoWindow, Marker } from "google-maps-react";
+import { CurrentLocation } from "./Map";
 
 const mapStyles = {
   width: "100%",
   height: "100%"
 };
 
+
 //mapcontainer is responsible for loading google API and demonstare usage
 //Map component is placed inside the container, currently the single feature, CurrentLocation
 export class MapContainer extends React.Component {
+
   state = {
     showingInfoWindow: false, //hids or shows the info window
     activeMarker: {}, //show active marker upon click
@@ -41,6 +41,7 @@ export class MapContainer extends React.Component {
   // building marker component, we make marker child of map component. We build <Marker/> component as child of the Map so that they are
   // independent of the Map itself but interdependent if map is available
   render() {
+    
     let show_name;
     if (this.state.showingInfoWindow) {
       show_name = (
@@ -56,8 +57,7 @@ export class MapContainer extends React.Component {
       );
     }
     return (
-      <div>
-      <Layout>
+     
       <CurrentLocation
         centerAroundCurrentLocation
         google={this.props.google} //placing the map conponent inside the container
@@ -71,12 +71,12 @@ export class MapContainer extends React.Component {
           <div>{show_name}</div>
         </InfoWindow>
       </CurrentLocation>
-      </Layout>
-      </div>
+
+
     );
   }
 }
 
 export default GoogleApiWrapper(props => ({
-  apiKey: "AIzaSyD-a_aMfM44H43DL1gkBccsYjcYgZTZWQk"
+  apiKey: "AIzaSyD8kEdQYnlfJaGYD70GNqtxzf7oet_3wwY",
 }))(MapContainer);

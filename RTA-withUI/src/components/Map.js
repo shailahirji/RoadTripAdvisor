@@ -3,15 +3,16 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Geocode from "react-geocode";
 
+
 const mapStyles = {
   map: {
     position: "absolute",
     width: "100%",
-    height: "100%"
+    height: "100%",
   }
 };
 
-Geocode.setApiKey("AIzaSyD-a_aMfM44H43DL1gkBccsYjcYgZTZWQk");
+Geocode.setApiKey("AIzaSyD8kEdQYnlfJaGYD70GNqtxzf7oet_3wwY");
 
 //When GoogleAPIwrapper ** loads on the page, it will create a google maps component and pass into our map/current location(not sure which one)
 //we are wrapping our main component and passing it into our map component as a prop.
@@ -20,7 +21,7 @@ Geocode.setApiKey("AIzaSyD-a_aMfM44H43DL1gkBccsYjcYgZTZWQk");
 export class CurrentLocation extends React.Component {
   constructor(props) {
     super(props); //make it stateful
-    const { lat, lng, name } = this.props.initialCenter;
+    const { lat, lng, name} = this.props.initialCenter;
     this.state = {
       currentLocation: {
         lat: lat,
@@ -165,7 +166,7 @@ export default CurrentLocation;
 
 //inoder to make center dynamic, we need to pass it in through props, allows us not to hard code this.props in loadMap()
 CurrentLocation.defaultProps = {
-  zoom: 15,
+  zoom: 13,
   initialCenter: {
     lat: 40.723839,
     lng: -104.105515,

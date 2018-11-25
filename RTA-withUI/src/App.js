@@ -1,10 +1,9 @@
-import React, { Component, Button } from "react";
+import React, { Component } from "react";
 import "./App.css";
 import "./components/MapContainer";
-import { Route, Link, BrowserRouter as Router, Switch } from 'react-router-dom'
-import Landing from "./components/landingpage";
-import { Layout, Header, Navigation, Drawer, Content } from "react-mdl";
-import MapContainer from "./components/MapContainer";
+import { Link, BrowserRouter as Router} from 'react-router-dom'
+import { Layout, Header, Navigation, Content } from "react-mdl";
+import Main from "./components/main";
 
 const mapStyles = {
   width: "100%",
@@ -17,14 +16,25 @@ class App extends Component {
   render() {
     return (
       <div className="demo-big-content">
-        
-      </div>
+      <Layout>
+        <Header className="header-color" title="Road Trip Advisor" scroll>
+          <Navigation>
+            <Link to="/home">Home</Link>
+            <Link to="/plan-a-trip">Plan a trip</Link>
+            <Link to="/sign-up">Sign Up</Link>
+            <Link to="/sign">Sign In</Link>
+            <Link to="/currentlocation">Current Location</Link>         
+            </Navigation>
+             
+        </Header>
+        <Content>
+          <div className="page-content">
+          <Main/>
+          </div>
+        </Content>
+      </Layout>
+    </div>
     );
   }
 }
 export default App;
-// export default GoogleApiWrapper(
-// (props)=>({
-//   apiKey:'AIzaSyD-a_aMfM44H43DL1gkBccsYjcYgZTZWQk'
-// }
-// ))(MapContainer)
