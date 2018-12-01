@@ -10,8 +10,9 @@ const mapStyles = {
   height: "100%"
 };
 
-class App extends Component {
 
+
+class App extends Component {
 
   render() {
     return (

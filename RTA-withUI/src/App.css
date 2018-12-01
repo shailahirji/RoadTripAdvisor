@@ -18,8 +18,17 @@ background: linear-gradient(to left, #f2fcfe, #1c92d2); /* W3C, IE 10+/ Edge, Fi
   }
 
 .avatar-img {
-  height: 250px;
-  padding-top: 5em;
+  width: 100%;
+  height: 100%;
+  padding-top: 5em;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+  
+
+
+
 }
 
 .banner-text{
@@ -28,6 +37,13 @@ background: linear-gradient(to left, #f2fcfe, #1c92d2); /* W3C, IE 10+/ Edge, Fi
   width: 75%;
   margin: auto;
   border-radius: 10px;
+  position: 'absolute';
+  top: 0;
+   left: 0;
+   right: 0;
+    bottom: 0;
+     justifyContent: 'center';
+      alignItems: 'center';
 }
 
 .banner-text h1{
@@ -46,4 +62,5 @@ background: linear-gradient(to left, #f2fcfe, #1c92d2); /* W3C, IE 10+/ Edge, Fi
   color: white;
   font-size: 20px;
   padding: 1em;
+  
 }
