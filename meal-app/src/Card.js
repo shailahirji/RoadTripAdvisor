@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 
+
 import Content from './Content.js';
 import Filter from "./filter.js";
 import StarRating from "./starRatings.js";
 import RangeSlider from './rangeSlider.js';
+
 
 class Square extends React.Component {
     render() {
@@ -29,8 +31,8 @@ class Square extends React.Component {
   class Card extends React.Component {
     render() {
       var cardStyle = {
-        height: "relative",
-        width: 400,
+        height: "absolute",
+        width: 870,
         padding: 0,
         backgroundColor: "#FFF",
         WebkitFilter: "drop-shadow(0px 0px 5px #666)",
@@ -44,7 +46,7 @@ class Square extends React.Component {
       return (
         <div style={cardStyle}>
           <Square color={this.props.color} />
-          <Content/>
+          <Content/>  
         </div>
       );
     }

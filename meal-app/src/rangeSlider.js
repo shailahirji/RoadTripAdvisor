@@ -41,6 +41,7 @@ class RangeSlider extends React.Component{
             onChange={this.handleChange}
             onChangeComplete={this.handleChangeComplte}
             />
+
             <br/>
              {/* <button onClick={()=>this.props.action(this.state.value)}>Submit</button> */}
             </div>

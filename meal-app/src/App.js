@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Select from 'react-select';
-import Filter from "./filter.js";
-import StarRating from "./starRatings.js";
-import RangeSlider from './rangeSlider.js';
-import Popup from './Popup.js';
+import Map from './Map.js';
+import MF from './MealMap.js';
 import Card from './Card.js';
 
 class App extends React.Component{
@@ -100,6 +97,7 @@ class App extends React.Component{
           <Card color="#FF6663"></Card>
            </div> */}
            <Card color="#FF6663"></Card>
+           {/* <MF/> */}
           </div>
   
          

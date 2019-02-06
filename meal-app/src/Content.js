@@ -4,6 +4,7 @@ import App from './App.js';
 import Filter from "./filter.js";
 import StarRating from "./starRatings.js";
 import RangeSlider from './rangeSlider.js';
+import MF from './MealMap.js';
 
 class Content extends React.Component {
 
@@ -58,7 +59,7 @@ class Content extends React.Component {
 
       const dinning_options=[ 
         {value: '1',label:'All Food & Drinks'},{value:'2',label:'Bars & Drinks'},
-        {value:'3',label:'Burgers & BBQ'},{value: '4',label:'Delis & Bakeries'},
+        {value:'3',label:'Burgers & BBQ'},{value: '4',label:'bakery'},
         {value:'5',label:'Coffee & Tea'}, {value:'6',label:'Diners & Breakfast'},
         {value: '7',label:'Ice cream & Desserts'},{value:'8',label:'Vegeterian & Healthy Food'},
         {value:'9',label:'Kosher'},{value: '10',label:'Halal'},{value:'11',label:'Wineries & Distelliers'},{value:'12',label:'Resturants'},  
@@ -91,11 +92,16 @@ class Content extends React.Component {
           <RangeSlider name='distance_range' action={this.distance_Handler} label={distance_label}/>
             </div>
 
+
         <div className="ratings">
           <p>Reviews: {this.state.ratings}</p>
           <StarRating action={this.ratings_Handler}/>
           </div>
-
+          <div className="map">
+          <MF search={this.state.selected} price={this.state.price_range} 
+            reviews={this.state.ratings} radius={this.state.distance}
+          />
+          </div>
         </p>
       );
     }

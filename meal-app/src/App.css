@@ -33,13 +33,17 @@
 
 
  .rangeSliderStyle{
-  width:90%;
+  width:300px;
   align-self: center;
   align-content: center;
  
+}
+.filterStyle{
+  width:300px;
 }
 
 .money{display:inline;}
 .distance{display:inline;}
 .ratings{display:flex;}
+
 
