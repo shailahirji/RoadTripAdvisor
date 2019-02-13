@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Map from './Map.js';
-import MF from './MealMap.js';
+import MealMap from './MealMap.js';
 import MealCard from './MealCard.js';
-import Content from './MealCard.js';
-import {Button} from 'react-bootstrap';
-import {connect} from "react-redux";
-import MealPref from "./MealPref"
+
 
 class App extends React.Component{
   constructor(props){
@@ -19,26 +14,56 @@ class App extends React.Component{
         price_range:'any',//any price range
         distance:'any',
         ratings:'any',
-        search_result:[]
+        search_result:[],
+        
       };
-      //this.childHandler=this.childHandler.bind(this)
-  
+   
+    }
+
+    //get data back from child 
+    selectedKeywords=(selection)=>{
+      this.setState({
+        selected:selection
+      })
+    }
+
+    selectPrice=(price)=>{
+      this.setState({
+        price_range:price
+      })
+    }
+
+    selectedDistance=(distance)=>{
+      this.setState({
+        distance:distance
+      })
+    }
+
+    selectedRatings=(rate)=>{
+      this.setState({
+        ratings:rate
+      })
+    }
+    
+    displayedResults=(results)=>{
+      this.setState({
+        search_results:results
+      })
     }
  
-    //to get data back from Child 
 
 
 render(){
      
   return(
         <div>
-           <MealCard color="#FF6663" 
+           <MealCard color="#FF6663" getKeywordList={this.selectedKeywords} getPrice={this.selectPrice} getRadius={this.selectedDistance} 
+           getRatings={this.selectedRatings} 
             ></MealCard>
           
-           {/* <MF search={this.state.selected} price={this.state.price_range} 
+           <MealMap search={this.state.selected} price={this.state.price_range} 
             reviews={this.state.ratings} radius={this.state.distance}
-            
-          /> */}
+          />
           </div>
   
          

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {Button} from 'react-bootstrap';
 import Filter from "./filter.js";
 import StarRating from "./starRatings.js";
 import RangeSlider from './rangeSlider.js';
@@ -49,7 +48,8 @@ class Content extends React.Component {
  
     //to get data back from Child 
     selection_Handler(selection){
-      console.log(selection)
+      this.props.getKeywordList(selection)
+      
       this.setState({
         selected:selection
       })
@@ -57,18 +57,21 @@ class Content extends React.Component {
 
     
     price_Handler(price){
+      this.props.getPrice(price)
       this.setState({
         price_range:price
       })
     }
 
     distance_Handler(dist){
+      this.props.getRadius(dist)
       this.setState({
         distance:dist
       })
     }
 
     ratings_Handler(ratings){
+      this.props.getRatings(ratings)
       this.setState({
         ratings:ratings
       })
@@ -85,15 +88,14 @@ class Content extends React.Component {
       {value: '1',label:'bakery'},{value: '2',label:'bar'},{value: '3',label:'cafe'},{value: '4',label:'liquor_store'},
       {value: '5',label:'meal_delivery'},{value: '6',label:'meal_takeaway'},{value: '7',label:'restaurant'},
       {value: '8',label:'supermarket'}]
-    const money_label={0:'$',50:'$$',100:'$$$'}
+    const money_label={0:'$',2:'$$',4:'$$$'}
     const distance_label={0:'Near',50:'Far',100:'Furthest'}
     
     return (
-      <p style={contentStyle}>
+      <div style={contentStyle}>
       <div className="filter">
           <Filter name='meal_type' placeholder= 'Meal Type' onChange={this.selection_Handler} choices= {dinning_options}></Filter>   
-           
-           
+     
             {
             this.state.selected.map(select=> {
               return(
@@ -107,25 +109,26 @@ class Content extends React.Component {
             <br/>
       <div className="money">
         <p>Price range: {this.state.price_range}</p>
-        <RangeSlider name='money_range' action={this.price_Handler} label={money_label}/>
+        <RangeSlider name='money_range' action={this.price_Handler} label={money_label} max={4}/>
           </div>
      
       <div className="distance">
         <p>Distance to travel from Location: {this.state.distance} miles</p>
-        <RangeSlider name='distance_range' action={this.distance_Handler} label={distance_label}/>
+        <RangeSlider name='distance_range' action={this.distance_Handler} label={distance_label} max={100}/>
           </div>
 
 
       <div className="ratings">
         <p>Reviews: {this.state.ratings}</p>
-        <StarRating action={this.ratings_Handler}/>
+        <StarRating action={this.ratings_Handler} name="rate"/>
         </div>
+
         <div className="map">
         {/* <MF search={this.state.selected} price={this.state.price_range} 
           reviews={this.state.ratings} radius={this.state.distance}
         /> */}
         </div>
-      </p>
+      </div>
     );
   }
 }
@@ -148,8 +151,9 @@ class Card extends React.Component {
     return (
       <div style={cardStyle}>
         <Square color={this.props.color} />
-        <Content/>  
+        <Content {...this.props}/>  
       </div>
+      // passing the list of props from App into content via <Content {...this.props}/>  
     );
   }
 }

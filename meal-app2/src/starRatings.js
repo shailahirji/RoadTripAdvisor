@@ -25,9 +25,9 @@ class StarRating extends React.Component{
                     starCount={5}
                     value={rating}
                     onStarClick={this.onStarClick.bind(this)}
+                    name={this.props.name}
                 />
                 <br/>
-                {/* <button onClick={()=>this.props.action(this.state.rating)}>Submit</button> */}
                 </div>
             )
         }

@@ -30,11 +30,12 @@ class RangeSlider extends React.Component{
     render(){
         const {value}= this.state;
         const labels=this.props.label;
+        const max=this.props.max;
         return(
             <div className='rangeSliderStyle'>
             <Slider 
             min={0}
-            max={100}
+            max={max}
             labels={labels}
             value={value}
             onChangeStart={this.handleChangeStart}
