@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
+
 import Square from './Square.js';
-import AgeLabel from './AgeLabel';
-import AgeKids from './AgeKids.js';
-import MealPreferences from './MealPreferences.js';
-import Interests from './Interests';
 import IncrementComponent from './IncrementComponent.js';
-import MapContainer from './MapContainer.js';
 
 class Card extends Component {
 
@@ -85,23 +81,6 @@ class Card extends Component {
                     </div>
 
 
-                    <div style={styles.cardStyle}>
-                        <Square />
-                        <MealPreferences />
-
-                    </div>
-
-                    <div style={styles.cardStyle}>
-                        <Square />
-                        <p> </p>
-                        <Interests />
-
-                    </div>
-
-                    <div style={styles.cardStyle}>
-                    <Square />
-                    <MapContainer />
-                    </div>
                 </div>
 
             </div>
