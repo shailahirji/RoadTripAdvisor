@@ -9,7 +9,9 @@ import Home from './components/Home.js';
 import Header from './components/Header.js';
 import Profile from './components/Profile.js';
 import Card from './components/Card.js';
-import MapContainer from './components/MapContainer.js';
+import MapContainer from './components/MapContainer';
+import MyMapComponent from './components/MyMapComponent'
+
 
 const mapStyles = {
   width: '100%',
@@ -25,7 +27,7 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Header />
-          <div className="container bg-main">
+          <div className="bg-main">
 
             <Switch>
 

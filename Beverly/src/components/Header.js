@@ -5,7 +5,7 @@ class Header extends Component {
   render() {
     return (
       <div className="headerSpec">
-        <nav className="navbar navbar-expand-lg navbar-light "> {/* Nav has a set of proprieties that need to be set.*/}
+        <nav className="navbar navbar-expand-lg "> {/* Nav has a set of proprieties that need to be set.*/}
           <Link className="navbar-brand " to="/">RTA</Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
