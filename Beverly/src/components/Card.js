@@ -30,6 +30,7 @@ class Card extends Component {
                 width: 300,
                 float: "left",
                 backgroudColor: "#FFF",
+                
                 boxShadow: "0px 0px 5px #666",
                 margin: "20px",
             },

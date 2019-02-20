@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { compose, withProps } from "recompose";
 import { Map, GoogleApiWrapper, InfoWindow, Marker, google, Polyline  } from 'google-maps-react';
 import {connect} from 'react-redux'
-
+import MyMapComponent from './MyMapComponent'
 const mapStyles = {
   width: '60%',
   height: '60%'
@@ -35,47 +36,47 @@ const mapStyles = {
     console.log("ON RECOIT LE PROP ",this.props.locations[0])
   }
 
-  renderMarkers(){
-    this.props.locations.map(location => {
-      console.log("FOR LOCATION ",location)
-      return ( <Marker
-        onClick={this.onMarkerClick}
-        name={'Kenyatta International Convention Centre'}
-        position={location}
-      />)
-    }
+  // renderMarkers(){
+  //   this.props.locations.map(location => {
+  //     console.log("FOR LOCATION ",location)
+  //     return ( <Marker
+  //       onClick={this.onMarkerClick}
+  //       name={'Kenyatta International Convention Centre'}
+  //       position={location}
+  //     />)
+  //   }
      
-     )
-  }
+  //    )
+  // }
  
     render() {
        
           const locations = this.props.locations;
           return (
-            <Map
-              google={this.props.google}
-              zoom={7}
-              style={mapStyles}
-              initialCenter={locations[0]}
-            >
+        //     <Map
+        //       google={this.props.google}
+        //       zoom={7}
+        //       style={mapStyles}
+        //       initialCenter={locations[0]}
+        //     >
             
             
-            <Polyline path={[locations[0], locations[1]]}/>
+        //     <Polyline path={[locations[0], locations[1]]}/>
 
-            <Marker
-            onClick={this.onMarkerClick}
-            name={'Kenyatta International Convention Centre'}
-            position={locations[0]}
-          />
-          <Marker
-          onClick={this.onMarkerClick}
-          name={'Kenyatta International Convention Centre'}
-          position={locations[1]}
-        />
+        //     <Marker
+        //     onClick={this.onMarkerClick}
+        //     name={'Kenyatta International Convention Centre'}
+        //     position={locations[0]}
+        //   />
+        //   <Marker
+        //   onClick={this.onMarkerClick}
+        //   name={'Kenyatta International Convention Centre'}
+        //   position={locations[1]}
+        // />
             
            
-          </Map>
-    
+        //   </Map>
+        <MyMapComponent locations={this.props.locations}/>
             
           )
 

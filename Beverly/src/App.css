@@ -24,21 +24,39 @@
   align-items: center;
 }
 
-.try nav{
-  /* background-color: aquamarine;*/
-}
 
-.avatar-img{
-  height: auto;
-  width: auto;
-  opacity: 10%;
-}
+body{
+ background-image: url('https://www.travellers-autobarn.com.au/wp-content/uploads/2017/08/Perth-to-Melbourne-road-trip.jpg');
 
-.bg-main{
-/* background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('https://i.pinimg.com/originals/87/7c/dc/877cdc4fdf2984cfb14c79d1f258f547.jpg');
-*/
 background-size:cover;
 background-repeat:no-repeat;
 background-position:center;
+}
 
+.card{
+  background-color:black;
+  opacity: 0.9;
+}
+
+
+.here{
+
+  height:100vh; 
+}
+
+.headerSpec{
+  /* background-color: black;
+  opacity: 0.4;
+  */
+} 
+
+.headerSpec .nav-link,.navbar-brand {
+  color:black;
+  font-weight: bold;
+  font-size:1.4em;
+}
+.headerSpec .nav-link:hover{
+  background-color:#f9c80e;
+  border:1px solid #f18805;
+  border-radius:5%;
 }

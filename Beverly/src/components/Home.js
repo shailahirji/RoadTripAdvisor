@@ -47,12 +47,12 @@ class Home extends Component {
     render() {
 
         return (
-            <div class="here">
+            <div class="here otherBack">
                 <div className="text-center">
 
                     <div className="landingpage-style">
-                        <h1>Road Trip Advisor</h1>
-                        <p> Share Road Trip Advisor with your friends!</p>
+                        <h1 className="roadTripAdvisor">Road Trip Advisor</h1>
+                        <p className="roadTripAdvisor"> Share Road Trip Advisor with your friends!</p>
                     </div>
                     <div class="container my-1">
                         <div class="row text-center pb-1">
@@ -119,6 +119,8 @@ class Home extends Component {
                             </div>
                         </div>
                     </div>
+                   
+
 
                 </div>
             </div>
