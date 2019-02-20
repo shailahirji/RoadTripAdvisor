@@ -98,9 +98,9 @@ class Content extends React.Component {
           <StarRating action={this.ratings_Handler}/>
           </div>
           <div className="map">
-          <MF search={this.state.selected} price={this.state.price_range} 
+          {/* <MF search={this.state.selected} price={this.state.price_range} 
             reviews={this.state.ratings} radius={this.state.distance}
-          />
+          /> */}
           </div>
         </p>
       );

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import {Container, Col, Row} from 'reactstrap'
 import './App.css';
-import Map from './Map.js';
-import MF from './MealMap.js';
-import Card from './Card.js';
+import MealMap from './MealMap.js';
+import MealCard from './MealCard.js';
+
 
 class App extends React.Component{
-
-    constructor(props){
+  constructor(props){
       super(props);
 
       this.state={
@@ -15,90 +14,63 @@ class App extends React.Component{
         count:0,
         price_range:'any',//any price range
         distance:'any',
-        ratings:'any'
+        ratings:'any',
+        search_result:[],
+        
       };
-      //this.childHandler=this.childHandler.bind(this)
-      this.selection_Handler=this.selection_Handler.bind(this)
-      this.PriceRange_Handler=this.PriceRange_Handler.bind(this)
-      this.distance_Handler=this.distance_Handler.bind(this)
-      this.ratings_Handler=this.ratings_Handler.bind(this)
+   
     }
- 
-    //to get data back from Child 
-    selection_Handler(selection){
+
+    //get data back from child 
+    selectedKeywords=(selection)=>{
       this.setState({
         selected:selection
       })
     }
 
-    PriceRange_Handler(price){
+    selectPrice=(price)=>{
       this.setState({
         price_range:price
       })
     }
 
-    distance_Handler(dist){
+    selectedDistance=(distance)=>{
       this.setState({
-        distance:dist
+        distance:distance
       })
     }
 
-    ratings_Handler(ratings){
+    selectedRatings=(rate)=>{
       this.setState({
-        ratings:ratings
+        ratings:rate
       })
     }
+    
+    displayedResults=(results)=>{
+      this.setState({
+        search_results:results
+      })
+    }
+ 
 
-    render(){
-      const money_label={0:'$',50:'$$',100:'$$$'}
-      const distance_label={0:'Near',50:'Far',100:'Furthest'}
-      const dinning_options=[ 
-        {value: '1',label:'All Food & Drinks'},{value:'2',label:'Bars & Drinks'},
-        {value:'3',label:'Burgers & BBQ'},{value: '4',label:'Delis & Bakeries'},
-        {value:'5',label:'Coffee & Tea'}, {value:'6',label:'Diners & Breakfast'},
-        {value: '7',label:'Ice cream & Desserts'},{value:'8',label:'Vegeterian & Healthy Food'},
-        {value:'9',label:'Kosher'},{value: '10',label:'Halal'},{value:'11',label:'Wineries & Distelliers'},{value:'12',label:'Resturants'},  
-        ]
 
-  
-        return(
-            <div>
-            {/* <div className="filter">
-            <Filter name='meal_type' placeholder= 'Meal Type' action={this.selection_Handler} choices= {dinning_options}></Filter>   
-              
-              {
-              this.state.selected.map(select=> {
-                return(
-                  <div key={select.value}>
-                  <p>{select.label}</p>
-                  </div>
-                )
-              })
-            }
-            </div>
+render(){
+     
+  return(
+        <Container>
+       
+         
+           <MealCard color="#FF6663" getKeywordList={this.selectedKeywords} getPrice={this.selectPrice} getRadius={this.selectedDistance} 
+           getRatings={this.selectedRatings} 
+            ></MealCard>
+      
 
-            <div className="money">
-          <p>Price range: {this.state.price_range}</p>
-          <RangeSlider name='money_range' action={this.PriceRange_Handler} label={money_label}/>
-          <br/>
-            </div>
+           <MealMap search={this.state.selected} price={this.state.price_range} 
+            reviews={this.state.ratings} radius={this.state.distance}
+          />
+      
 
-         <div className="distance">
-          <p>Distance to travel from Location: {this.state.distance} miles</p>
-          <RangeSlider name='distance_range' action={this.distance_Handler} label={distance_label}/>
-          <br/>
-            </div>
-
-          <div className="ratings">
-          <p>Reviews: {this.state.ratings}</p>
-          <StarRating action={this.ratings_Handler}/>
-          </div>
-          <div>
-          <Card color="#FF6663"></Card>
-           </div> */}
-           <Card color="#FF6663"></Card>
-           {/* <MF/> */}
-          </div>
+          </Container>
   
          
           
@@ -107,3 +79,52 @@ class App extends React.Component{
 }
 
 export default App;
+
+// function mapStateToProps(state){ //map redux to component props 
+//   return{
+//     selected:state.selected,
+//     price:state.price,
+//     radius:state.radius,
+//     reviews:state.reviews,
+//     results:state.results
+//   };
+// }
+
+// //action, to give our component access to the action creators and action 
+// var updateSelectionAction= {type:"UpdateSelection"};
+// var updatePriceAction= {type:"UpdatePrice"};
+// var updateRadiusAction= {type:"UpdateRadius"};
+// var updateReviewsAction= {type:"UpdateReviews"};
+// var updateResultAction= {type:"UpdateResults"};
+
+// //Map redux actions to component props
+// //we return an object containing the name of the two funcions our component can call 
+// //to dispatch a change to our store
+// function mapDispatchToProps(dispatch){
+//   return{
+//     update_selection:function(){ //this function fires a dispatch with an action type of update selection
+//       return dispatch(updateSelectionAction);
+//     },
+//     update_price:function(){
+//       return dispatch(updatePriceAction);
+//     },
+//     update_radius:function(){
+//       return dispatch(updateRadiusAction);
+//     },
+//     update_reviews:function(){
+//       return dispatch(updateReviewsAction);
+//     },
+//     update_results:function(){
+//       return dispatch(updateResultAction);
+//     }
+//   };
+// }
+
+// //The HIGH ORDER COMPONENT , ensures that whatever component that owns these has a way of recieving them 
+// //takes mapStateToProps and mapDispatchToProps as args and passes them to our component  
+// var connectedComponent=connect(
+// mapStateToProps,
+// mapDispatchToProps
+// )(MealPref);
+
+// export default connectedComponent;
