@@ -62,6 +62,18 @@ class App extends Component {
       }
     ];
 
+    // var newRoute = { route: [] };
+    // for (var i = 0; i < 100; i++) {
+    //   newRoute.route.push({
+    //     location: i,
+    //     pos: { lat: 47.8107 + i * 0.001, lng: -122.3774 + i * 0.001 },
+    //     type: 0
+    //   });
+    //   console.log(i);
+    // }
+
+    // routes.push(newRoute);
+
     return <RouteSelector position={position} routes={routes} />;
   }
 }
