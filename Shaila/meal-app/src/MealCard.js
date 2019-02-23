@@ -139,7 +139,7 @@ class Content extends React.Component {
 class Card extends React.Component {
   render() {
     var cardStyle = {
-      height: 381,
+      height: "relative",
       width: 390,
       padding: 0,
       backgroundColor: "#FFF",
