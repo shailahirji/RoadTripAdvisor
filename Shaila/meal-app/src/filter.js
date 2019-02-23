@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Select from 'react-select'
 
@@ -18,7 +17,7 @@ class Filter extends React.Component{
 
     handleOnSelect(selection){
       console.log(selection)
-      this.props.action(selection)
+      this.props.onChange(selection)
       // this.setState((prevState)=>{
       //   this.props.action(this.state.selected)
       //   return{
@@ -37,7 +36,6 @@ class Filter extends React.Component{
     render(){
         const options= this.props.choices;
         const placeholder=this.props.placeholder;
-       
         return(
             <div className="filterStyle">
             {/* <h1>Count={this.state.selected.length}</h1> */}
@@ -45,8 +43,8 @@ class Filter extends React.Component{
             options={options} placeholder={placeholder} isMulti isClearable isSearchable 
             onChange={this.handleOnSelect}/>
         
-            {/* <Button size="sm" onClick={()=>this.props.action(this.state.selected)}>Submit</Button> */}
-       
+            {/* <Button size="sm" onClick={()=>this.props.onChange(this.state.selected)}>Submit</Button>
+        */}
             {/* {
               this.state.selected.map(select=> {
                 return(
