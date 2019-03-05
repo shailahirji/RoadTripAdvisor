@@ -37,12 +37,13 @@
   align-self: center;
   align-content: center;
  
+ 
 }
 .filterStyle{
   width:300px;
 }
 
-.money{display:inline;}
+.money{display:inline; }
 .distance{display:inline;}
 .ratings{display:flex;}
 

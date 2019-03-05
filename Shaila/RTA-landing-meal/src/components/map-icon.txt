@@ -1,0 +1,5 @@
+meal dev/bakery/resturant: https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png
+cafe:https://maps.gstatic.com/mapfiles/place_api/icons/cafe-71.png 
+bar: https://maps.gstatic.com/mapfiles/place_api/icons/bar-71.png 
+liqour: https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png
+shopping: https://maps.gstatic.com/mapfiles/place_api/icons/shopping-71.png

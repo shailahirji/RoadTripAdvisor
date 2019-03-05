@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import {Container, Col, Row,Button} from 'reactstrap'
+// import {Container, Col, Row,Button} from 'reactstrap'
+import {Container} from 'reactstrap'
+
 import './App.css';
 import MealMap from './MealMap.js';
 import MealCard from './MealCard.js';
@@ -79,10 +81,10 @@ render(){
 
   return(
         <Container>
-          <div>
+          {/* <div>
           <Button style={buttonStyle} >Meal</Button>
           <Button style={buttonStyle} onClick={this.displayCard('travelers') } >Travelers</Button>
-         </div>
+         </div> */}
            <MealCard color="#ffc107" getKeywordList={this.selectedKeywords} getPrice={this.selectPrice} getRadius={this.selectedDistance} 
            getRatings={this.selectedRatings} 
             ></MealCard>

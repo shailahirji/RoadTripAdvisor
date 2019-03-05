@@ -4,8 +4,18 @@ import { compose, withProps, withHandlers, withState, withStateHandlers, lifecyc
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow, DirectionsRenderer } from "react-google-maps"
 import { connect } from 'react-redux'
 import meal from './meal.png'
-import bakery from './bakery.png'
+import bar from './bar.png'
+import cafe from './cafe.png'
+import gbuss from './genericbusiness.png'
+import shopping from './shopping.png'
+import lodging from './lodging.png'
+import gas from './gasstation.png'
 
+
+var route_markers = [];
+var center;
+var center_lat;
+var center_lng;
 const MyMapComponent = compose(
 
     withProps(
@@ -28,21 +38,20 @@ const MyMapComponent = compose(
         componentWillMount(){
             this.getGeoLocation()
         },
-        async getGeoLocation(){
+        async getGeoLocation(){ //this method gets the geolocation coordinates by calling getLocationCoordinates while passing location names as input from user
             if(this.props.locations ){
-              const locations = this.props.locations;
-              console.log(locations)
-              const route_markers = [];
-            const from = await this.getLocationCoordinates(locations.from);
-            const to = await this.getLocationCoordinates(locations.to);
-            route_markers.push(from);
-            route_markers.push(to);
+              const locations = this.props.locations; //passing array with start and end destination names 
+               route_markers = [];//used to store the geolocation 
+            const from = await this.getLocationCoordinates(locations.from); //returns coordinate of start dest
+            const to = await this.getLocationCoordinates(locations.to); //returns coordinates of end dest
+            route_markers.push(from); //add to the array
+            route_markers.push(to);//add to the array 
             this.setState({markers:route_markers})
             this.componentDidMount(route_markers)
             }
           },
     
-          getLocationCoordinates(location){
+          getLocationCoordinates(location){//computes the geocoordinates of given locations using googles Geocoder 
             return new Promise((resolve, reject)=>{
               const geocoder = new window.google.maps.Geocoder();
               geocoder.geocode({address:location}, (result, status)=>{
@@ -63,7 +72,7 @@ const MyMapComponent = compose(
             });
           
           },
-        componentDidMount(route_markers) {
+        componentDidMount(route_markers) { //this method draws the route between start and end destination
             if(route_markers){
             const DirectionsService = new google.maps.DirectionsService();
             DirectionsService.route({
@@ -72,7 +81,7 @@ const MyMapComponent = compose(
                 travelMode: google.maps.TravelMode.DRIVING,
             }, (result, status) => {
                 if (status === google.maps.DirectionsStatus.OK) {
-                    //console.log(result)
+//console.log(result)
                     this.setState({
                         directions: { ...result },
                         markers: true
@@ -92,7 +101,7 @@ const MyMapComponent = compose(
             lat: 47.6769683, lng: -90.6769683
         }
     }), {
-            onToggleOpen: ({ isOpen }) => (index) => ({
+            onToggleOpen: ({ isOpen }) => (index) => ({ //used to handle info window on markers 
                 isOpen: !isOpen,
                 markerIndex: index
             })
@@ -107,9 +116,14 @@ const MyMapComponent = compose(
             onMapMounted: () => ref => {
                 refs.map = ref
             },
-            fetchPlaces: async ({ updatePlaces, searchCriteria, radius, price, review, defaultCenter }) => {
+            fetchPlaces: async ({ updatePlaces, searchCriteria, radius, price, review, defaultCenter }) => { //fetches new places to dispaly on map by making a request to googles PlaceService api
                 const bounds = refs.map.getBounds();
-                refs.array = searchCriteria
+               // refs.map.panToBounds(bounds);
+                center=refs.map.getCenter();
+                center_lat=center.lat();
+                center_lng=center.lng();
+                
+                refs.array = searchCriteria;
                 var maxPrice = price;
                 const service = new google.maps.places.PlacesService(refs.map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED);
                 var x;
@@ -117,7 +131,7 @@ const MyMapComponent = compose(
 
                 for (x = 0; x < refs.array.length; x++) {
                     var request = {
-                        location: defaultCenter,//location:(new google.maps.LatLng(47.6769683,-122.0284808)),or {lat:47.6769683,lng:-122.0284808}
+                        location: center,//location:(new google.maps.LatLng(47.6769683,-122.0284808)),or {lat:47.6769683,lng:-122.0284808}
                         bounds: bounds,
                         radius: radius,
                         type: refs.array[x],
@@ -133,14 +147,16 @@ const MyMapComponent = compose(
                                 var x;
                                 for (x = 0; x < results.length; x++)
                                     output.push(results[x]);
-
                                 resolve(output);
                                 updatePlaces(output);
                             } else {
                                 reject();
                             }
+                        }).then(response=>{
+                            console.log(response);
+                        }).catch(e => {
+                            console.log(e);
                         })
-
                     })
 
                 } //end of forloop 
@@ -162,23 +178,37 @@ const MyMapComponent = compose(
     }),
 )((props) => {
 
+    //console.log(route_markers)
     if (props.places != null)
 
-        var target = new google.maps.LatLng(47.6769683, -122.0284808); //this needs to update with the bound and not be fixed like this
+    // if(route_markers[1]!== undefined)
+    var target = new google.maps.LatLng(center_lat, center_lng); //this needs to update with the bound and not be fixed like this
+    console.log("TARGET:" + target)
     if (props.defaultCenter !== undefined) {
         target = props.defaultCenter
     }
+    
+console.log(center)
     var option = []; //new array to store results based on search criteria
     if (props.places) {
 
         //traverse through the place array, if there is a match between radius , price level. Enables makers to show without other information 
         props.places.map((place, i) => {
+            //console.log(props.radius)
+            var x= google.maps.geometry.spherical.computeDistanceBetween(target, new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()));
+            //console.log(x)
             if (google.maps.geometry.spherical.computeDistanceBetween(target, new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng())) < props.radius) {
-
+                //console.log("DISTANCE MATCH");
                 option.push(place);
             }
             if (place.price_level <= props.price) {
-                option.push(place)
+                //console.log("PRICE MATCH");
+                option.push(place);
+            }
+
+            if (place.rating <= props.ratings) {
+                //console.log("RATINGS MATCH");
+                option.push(place);
             }
 
             /*
@@ -194,32 +224,45 @@ const MyMapComponent = compose(
         }
         )
     }
+    var icon_map= {};
+    icon_map["https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png"]=meal;
+    icon_map["https://maps.gstatic.com/mapfiles/place_api/icons/cafe-71.png"]=cafe;
+    icon_map["https://maps.gstatic.com/mapfiles/place_api/icons/bar-71.png"]=bar;
+    icon_map["https://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png"]=gbuss;
+    icon_map["https://maps.gstatic.com/mapfiles/place_api/icons/shopping-71.png"]=shopping;
+    icon_map["https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png"]=lodging;
+    icon_map["https://maps.gstatic.com/mapfiles/place_api/icons/gas_station-71.png"]=gas;
 
 
-    console.log(option);
+
+
+    //console.log(option);
     return (
-
+        
+        //This component uses the fetchplaces function defined above to pick the location of the maps current focus and display the place markers according to user request. 
         <GoogleMap
             onTilesLoaded={props.fetchPlaces}
             ref={props.onMapMounted}
             onClick={props.fetchPlaces}
             defaultZoom={13}
+            drag={props.fetchPlaces}
+            zoom_changed={props.fetchPlaces}
             defaultCenter={{ lat: 47.6769683, lng: -122.0284808 }}
         >
             {option && option.map((place, i) =>
-
+                //using values collected into options array, displace markers onto the map using those place locations 
                 <Marker key={i} position={{ lat: place.geometry.location.lat(), lng: place.geometry.location.lng() }}
-                    onClick={() => { props.onToggleOpen(i) }} icon={{ url: place.icon, scaledSize: new google.maps.Size(15, 25) }} >
+                    onClick={() => { props.onToggleOpen(i) }} icon={{ url: icon_map[place.icon], scaledSize: new google.maps.Size(40, 40) }} >
                     {props.isOpen && props.markerIndex === i &&
-                        <InfoWindow onCloseClick={props.onToggleOpen}>
+                        <InfoWindow onCloseClick={props.onToggleOpen} >
                             <div>{place.name}</div>
                         </InfoWindow>
-                    }
+                                        }
+
                 </Marker>
 
             )}
             {/*for creating path with the updated coordinates*/}
-
             {props.directions && <DirectionsRenderer directions={props.directions} suppressMarkers={props.markers} />}
 
         </GoogleMap>
@@ -245,13 +288,13 @@ export default class MealMap extends React.Component {
             console.log(searchCriteria + " " + radius + " " + price + " " + ratings)
 
 
-            searchCriteria.map(select => {
+            searchCriteria.map(select => { //sending an array of user's meal type selection for processing into our component 
                 types.push(select.label)
             })
-
+            // calling our MyMapComponent defined above and passing in user requirments 
             return (
                 <MyMapComponent searchCriteria={types}
-                    price={price * 1}
+                    price={price}
                     review={ratings}
                     radius={radius * 1609} //converting into meters
                     locations={locations}
