@@ -1,7 +1,3 @@
-
-
-
-
 export const mapReducer  = (state = [], action) => {
     console.log("Called mapReducer ",action)
 switch(action.type) {

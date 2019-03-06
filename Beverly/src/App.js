@@ -8,9 +8,9 @@ import { Provider } from 'react-redux';
 import Home from './components/Home.js';
 import Header from './components/Header.js';
 import Profile from './components/Profile.js';
-import Card from './components/Card.js';
 import MapContainer from './components/MapContainer';
-import MyMapComponent from './components/MyMapComponent'
+import MyMapComponent from './components/MyMapComponent';
+import LocationSearchInput from './components/LocationSearchInput';
 
 
 const mapStyles = {
@@ -32,8 +32,9 @@ class App extends Component {
             <Switch>
 
               <Route exact path="/" component={Home} />
-              <Route exact path="/Profile" component={Card} />
               <Route exact path="/Map" component={MapContainer} />
+              <Route exact path="/Test" component={LocationSearchInput} />
+
 
             </Switch>
           </div>
