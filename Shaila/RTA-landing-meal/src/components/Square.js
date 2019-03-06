@@ -1,20 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Square extends Component {
-    render() {
+  render() {
+    var squareStyle = {
+      height: 30,
+      backgroundColor: "#FF6663"
+    };
 
-        var squareStyle ={
-
-            height:30,
-            backgroundColor: "#FF6663"
-        };
-
-        return (
-           <div style={squareStyle}>
-           
-           </div>
-        );
-    }
+    return <div style={squareStyle} />;
+  }
 }
 
 export default Square;
