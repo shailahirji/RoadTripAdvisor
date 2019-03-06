@@ -12,6 +12,7 @@ import Card from './components/Card.js';
 import MapContainer from './components/MapContainer';
 import MyMapComponent from './components/MyMapComponent'
 import MealPref from './components/MealPreferences'
+import LocationSearchInput from './components/LocationSearchInput'
 
 
 const mapStyles = {
@@ -36,6 +37,7 @@ class App extends Component {
               <Route exact path="/Profile" component={Card} />
               <Route exact path="/Map" component={MapContainer} />
               <Route exact path="/mealpref" component={MealPref} />
+              <Route exact path="/test" component={LocationSearchInput} />
 
 
             </Switch>
