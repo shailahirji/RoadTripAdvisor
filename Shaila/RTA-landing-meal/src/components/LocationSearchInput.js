@@ -22,7 +22,7 @@ class LocationSearchInput extends React.Component {
                 <input
                   {...getInputProps({
                     placeholder: 'Enter a location',
-                    className: 'location-search-input',
+                    className: 'form-control',
                   })}
 
                 />
@@ -52,13 +52,6 @@ class LocationSearchInput extends React.Component {
               </div>
             )}
           </PlacesAutocomplete>
-      //   </div>
-
-        
-      //   <button>Search</button>
-
-      // </div>
-
 
     );
   }
