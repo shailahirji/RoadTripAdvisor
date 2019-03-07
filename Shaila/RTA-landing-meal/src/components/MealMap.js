@@ -336,7 +336,7 @@ const MyMapComponent = compose(
             {props.isOpen && props.markerIndex === i && (
               <InfoWindow onCloseClick={props.onToggleOpen}>
                 <div>
-                  {place.name}
+                  {place.name +" "}
                   <button
                     onClick={() =>
                       props.handleClick(

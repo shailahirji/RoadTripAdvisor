@@ -20,7 +20,7 @@ class MyMapComponent extends React.Component {
     const DirectionsComponent = compose(
       withProps({
         googleMapURL:
-          "https://maps.googleapis.com/maps/api/js?key=AIzaSyC64eUv-Iw47Q9MqhsnpgzpvCUm-SM1qi4",
+        "https://maps.googleapis.com/maps/api/js?key=AIzaSyC64eUv-Iw47Q9MqhsnpgzpvCUm-SM1qi4",
         loadingElement: <div style={{ height: `400px` }} />,
         containerElement: <div style={{ width: `100%` }} />,
         mapElement: <div style={{ height: `600px`, width: `600px` }} />,
