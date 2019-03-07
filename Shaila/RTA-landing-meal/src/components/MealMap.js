@@ -335,7 +335,20 @@ const MyMapComponent = compose(
           >
             {props.isOpen && props.markerIndex === i && (
               <InfoWindow onCloseClick={props.onToggleOpen}>
-                <div>{place.name}</div>
+                <div>
+                  {place.name}
+                  <button
+                    onClick={() =>
+                      props.handleClick(
+                        place.geometry.location.lat(),
+                        place.geometry.location.lng(),
+                        place.name
+                      )
+                    }
+                  >
+                    +
+                  </button>
+                </div>
               </InfoWindow>
             )}
           </Marker>
@@ -375,13 +388,20 @@ export default class MealMap extends React.Component {
           review={ratings}
           radius={radius * 1609} //converting into meters
           locations={locations}
+          handleClick={this.props.handleClick}
         />
       );
     }
 
     return (
       //to prevent from crashing
-      <MyMapComponent searchCriteria="" price="any" review="any" radius="0" />
+      <MyMapComponent
+        searchCriteria=""
+        price="any"
+        review="any"
+        radius="0"
+        handleClick={() => console.log("Banana")}
+      />
     );
   }
 }

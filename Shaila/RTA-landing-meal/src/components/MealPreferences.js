@@ -6,6 +6,7 @@ import "./App.css";
 import MealMap from "./MealMap.js";
 import MealCard from "./MealCard.js";
 import Card from "./Card.js";
+import Itinerary from "./Itinerary";
 
 class MealPreferences extends React.Component {
   constructor(props) {
@@ -17,9 +18,24 @@ class MealPreferences extends React.Component {
       price_range: "any", //any price range
       distance: "any",
       ratings: "any",
-      search_result: []
+      search_result: [],
+      itinerary: []
     };
     this.card = null;
+    this.onMouseClickAdd = this.onMouseClickAdd.bind(this);
+  }
+
+  onMouseClickAdd(lat, lng, name) {
+    var newItinerary = this.state.itinerary;
+    newItinerary.push({ event: name, pos: { lat: lat, lng: lng } });
+    this.setState({
+      itinerary: newItinerary
+    });
+    for (var i = 0; i < this.state.itinerary.length; i++) {
+      console.log(this.state.itinerary[i].pos.lat);
+      console.log(this.state.itinerary[i].pos.lng);
+      console.log(this.state.itinerary[i].event);
+    }
   }
 
   displayCard(card) {
@@ -96,7 +112,9 @@ class MealPreferences extends React.Component {
           reviews={this.state.ratings}
           radius={this.state.distance}
           locations={this.props.location.state}
+          handleClick={this.onMouseClickAdd}
         />
+        <Itinerary events={this.state.itinerary} />
       </Container>
     );
   }
