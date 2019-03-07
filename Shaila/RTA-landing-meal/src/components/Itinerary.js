@@ -11,9 +11,17 @@ class Itinerary extends Component {
     var itinerary = [];
 
     var itineraryStyle = {
-      width: "335px",
-      backgroundColor: "#48BDAC",
-      padding: "1px"
+      // width: "335px",
+      // backgroundColor: "#48BDAC",
+      // padding: "1px"
+      height: "relative",
+      width: 390,
+      padding: 0,
+      backgroundColor: "rgba(225, 225, 225, 0.43)",
+      WebkitFilter: "drop-shadow(0px 0px 5px #666)",
+      filter: "drop-shadow(0px 0px 5px #666)",
+      margin: 30,
+      marginLeft: 100
     };
 
     for (var i = 0; i < events.length; i++) {
@@ -24,7 +32,7 @@ class Itinerary extends Component {
             event={events[i].event}
             lat={events[i].pos.lat}
             long={events[i].pos.long}
-            color="#FC4A1A"
+            color="#ffc107"
           />
           <br />
         </div>
