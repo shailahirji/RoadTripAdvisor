@@ -1,105 +1,123 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 // import {Container, Col, Row,Button} from 'reactstrap'
-import {Container} from 'reactstrap'
+import { Container } from "reactstrap";
 
-import './App.css';
-import MealMap from './MealMap.js';
-import MealCard from './MealCard.js';
-import Card from './Card.js';
+import "./App.css";
+import MealMap from "./MealMap.js";
+import MealCard from "./MealCard.js";
+import Card from "./Card.js";
+import Itinerary from "./Itinerary";
 
-class MealPreferences extends React.Component{
-  constructor(props){
-      super(props);
- this.displayCard=this.displayCard.bind(this);
-this.state={
-        selected:[],
-        count:0,
-        price_range:'any',//any price range
-        distance:'any',
-        ratings:'any',
-        search_result:[]
-      };
-      this.card=null;
-   
+class MealPreferences extends React.Component {
+  constructor(props) {
+    super(props);
+    this.displayCard = this.displayCard.bind(this);
+    this.state = {
+      selected: [],
+      count: 0,
+      price_range: "any", //any price range
+      distance: "any",
+      ratings: "any",
+      search_result: [],
+      itinerary: []
+    };
+    this.card = null;
+    this.onMouseClickAdd = this.onMouseClickAdd.bind(this);
+  }
+
+  onMouseClickAdd(lat, lng, name) {
+    var newItinerary = this.state.itinerary;
+    newItinerary.push({ event: name, pos: { lat: lat, lng: lng } });
+    this.setState({
+      itinerary: newItinerary
+    });
+    for (var i = 0; i < this.state.itinerary.length; i++) {
+      console.log(this.state.itinerary[i].pos.lat);
+      console.log(this.state.itinerary[i].pos.lng);
+      console.log(this.state.itinerary[i].event);
     }
-    
-    displayCard(card){
-      if(card==='travelers'){
-        console.log(card)
-        return(
-          <Card/>
-        )
-      }
-    }
+  }
 
-    //get data back from child 
-    selectedKeywords=(selection)=>{
-      this.setState({
-        selected:selection
-      })
+  displayCard(card) {
+    if (card === "travelers") {
+      console.log(card);
+      return <Card />;
     }
-  
-    selectPrice=(price)=>{
-      this.setState({
-        price_range:price
-      })
-    }
+  }
 
-    selectedDistance=(distance)=>{
-      this.setState({
-        distance:distance
-      })
-    }
+  //get data back from child
+  selectedKeywords = selection => {
+    this.setState({
+      selected: selection
+    });
+  };
 
-    selectedRatings=(rate)=>{
-      this.setState({
-        ratings:rate
-      })
-    }
-    
-    displayedResults=(results)=>{
-      this.setState({
-        search_results:results
-      })
-    }
- 
+  selectPrice = price => {
+    this.setState({
+      price_range: price
+    });
+  };
 
+  selectedDistance = distance => {
+    this.setState({
+      distance: distance
+    });
+  };
 
-render(){
-     var buttonStyle={backgroundColor: '#ffc107',
-     borderColor: '#ffc107',
-     borderWidth: 1,
-     borderRadius: 12,
-     color: 'black',
-     fontSize: 12,
-     fontWeight: 'bold',
-     overflow: 'hidden',
-     padding: 12,
-     margin:30,
-    marginLeft:100,
-     textAlign:'center'};
+  selectedRatings = rate => {
+    this.setState({
+      ratings: rate
+    });
+  };
 
-  return(
-        <Container>
-          {/* <div>
+  displayedResults = results => {
+    this.setState({
+      search_results: results
+    });
+  };
+
+  render() {
+    var buttonStyle = {
+      backgroundColor: "#ffc107",
+      borderColor: "#ffc107",
+      borderWidth: 1,
+      borderRadius: 12,
+      color: "black",
+      fontSize: 12,
+      fontWeight: "bold",
+      overflow: "hidden",
+      padding: 12,
+      margin: 30,
+      marginLeft: 100,
+      textAlign: "center"
+    };
+
+    return (
+      <Container>
+        {/* <div>
           <Button style={buttonStyle} >Meal</Button>
           <Button style={buttonStyle} onClick={this.displayCard('travelers') } >Travelers</Button>
          </div> */}
-           <MealCard color="#ffc107" getKeywordList={this.selectedKeywords} getPrice={this.selectPrice} getRadius={this.selectedDistance} 
-           getRatings={this.selectedRatings} 
-            ></MealCard>
-      
-           <MealMap search={this.state.selected} price={this.state.price_range} 
-            reviews={this.state.ratings} radius={this.state.distance} locations={this.props.location.state}
-          />
-      
+        <MealCard
+          color="#ffc107"
+          getKeywordList={this.selectedKeywords}
+          getPrice={this.selectPrice}
+          getRadius={this.selectedDistance}
+          getRatings={this.selectedRatings}
+        />
 
-          </Container>
-  
-         
-          
-        );
-    }
+        <MealMap
+          search={this.state.selected}
+          price={this.state.price_range}
+          reviews={this.state.ratings}
+          radius={this.state.distance}
+          locations={this.props.location.state}
+          handleClick={this.onMouseClickAdd}
+        />
+        <Itinerary events={this.state.itinerary} />
+      </Container>
+    );
+  }
 }
 
 export default MealPreferences;

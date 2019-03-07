@@ -14,7 +14,7 @@
 //         showingInfoWindow: false,  //Hides or the shows the infoWindow
 //         activeMarker: {},          //Shows the active marker upon click
 //         selectedPlace: {} ,         //Shows the infoWindow to the selected place upon a marker
-      
+
 //       };
 //       onMarkerClick = (props, marker, e) =>
 //     this.setState({
@@ -22,7 +22,7 @@
 //       activeMarker: marker,
 //       showingInfoWindow: true
 //     });
-   
+
 //   onClose = props => {
 //     if (this.state.showingInfoWindow) {
 //       this.setState({
@@ -31,7 +31,6 @@
 //       });
 //     }
 //   };
-
 
 //   componentWillMount(){
 //     console.log("ON RECOIT LE PROP ",this.props.locations[0])
@@ -46,23 +45,22 @@
 //   //       position={location}
 //   //     />)
 //   //   }
-     
+
 //   //    )
 //   // }
- 
+
 //     render() {
-       
+
 //           const locations = this.props.locations;
 //           console.log(locations)
 //           return (
 //             <div>
 //         <MyMapComponent locations={this.props.locations}/>
-     
+
 //           </div>
 //           )
 
 //       }
-   
 
 //   }
 
@@ -102,17 +100,16 @@
 //                 lng:geometry.lng()
 //               }
 //               resolve(coordinates);
-             
+
 //             }
 //             else{
 //               reject('ERROR')
 //             }
 //           })
-          
-//         });
-      
-//       }
 
+//         });
+
+//       }
 
 //    renderMarkers(){
 //     console.log(" THE STATE ",this.state.markers);
@@ -129,7 +126,7 @@
 //      else{
 //        return (null)
 //      }
-    
+
 //    }
 
 //     }
@@ -137,7 +134,7 @@
 //   }
 
 //   function mapStateToProps(state){
-    
+
 //     return {
 //       markerLocations: state.mapReducer.data
 //     }
@@ -148,4 +145,3 @@
 //   export default GoogleApiWrapper({
 //     apiKey: 'AIzaSyC64eUv-Iw47Q9MqhsnpgzpvCUm-SM1qi4'
 //   })(mapped);
-  
