@@ -17,13 +17,13 @@ import {
   DirectionsRenderer
 } from "react-google-maps";
 import { connect } from "react-redux";
-import meal from "./meal.png";
-import bar from "./bar.png";
-import cafe from "./cafe.png";
-import gbuss from "./genericbusiness.png";
-import shopping from "./shopping.png";
-import lodging from "./lodging.png";
-import gas from "./gasstation.png";
+import meal from "./Markers/meal.png";
+import bar from "./Markers/bar.png";
+import cafe from "./Markers/cafe.png";
+import gbuss from "./Markers/genericbusiness.png";
+import shopping from "./Markers/shopping.png";
+import lodging from "./Markers/lodging.png";
+import gas from "./Markers/gasstation.png";
 
 var route_markers = [];
 var center;
