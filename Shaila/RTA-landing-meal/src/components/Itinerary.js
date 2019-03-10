@@ -14,14 +14,15 @@ class Itinerary extends Component {
       // width: "335px",
       // backgroundColor: "#48BDAC",
       // padding: "1px"
-      height: "relative",
+      height: 400,
       width: 390,
       padding: 0,
       backgroundColor: "rgba(225, 225, 225, 0.43)",
       WebkitFilter: "drop-shadow(0px 0px 5px #666)",
       filter: "drop-shadow(0px 0px 5px #666)",
       margin: 30,
-      marginLeft: 100
+      marginLeft: 100,
+      overflow: "scroll"
     };
 
     for (var i = 0; i < events.length; i++) {
