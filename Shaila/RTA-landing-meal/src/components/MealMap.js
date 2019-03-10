@@ -42,7 +42,7 @@ const MyMapComponent = compose(
           width: "50%",
           height: 480,
           //WebkitFilter: "drop-shadow(0px 0px 30px )",
-          marginLeft: 482,
+          marginLeft: 330,
           marginTop: -510
         }}
       />

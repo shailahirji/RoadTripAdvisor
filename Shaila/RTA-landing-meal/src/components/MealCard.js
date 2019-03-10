@@ -159,8 +159,8 @@ class Card extends React.Component {
       backgroundColor: "rgba(225, 225, 225, 0.43)",
       WebkitFilter: "drop-shadow(0px 0px 5px #666)",
       filter: "drop-shadow(0px 0px 5px #666)",
-      margin: 30,
-      marginLeft: 100
+      margin: -3,
+      marginLeft: -59
     };
     return (
       <div style={cardStyle}>

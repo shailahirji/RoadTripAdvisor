@@ -11,7 +11,7 @@ import Itinerary from "./Itinerary";
 class MealPreferences extends React.Component {
   constructor(props) {
     super(props);
-    this.displayCard = this.displayCard.bind(this);
+   // this.displayCard = this.displayCard.bind(this);
     this.state = {
       selected: [],
       count: 0,
@@ -38,12 +38,12 @@ class MealPreferences extends React.Component {
     }
   }
 
-  displayCard(card) {
-    if (card === "travelers") {
-      console.log(card);
-      return <Card />;
-    }
-  }
+  // displayCard(card) {
+  //   if (card === "travelers") {
+  //     console.log(card);
+  //     return <Card />;
+  //   }
+  // }
 
   //get data back from child
   selectedKeywords = selection => {
@@ -114,7 +114,7 @@ class MealPreferences extends React.Component {
           locations={this.props.location.state}
           handleClick={this.onMouseClickAdd}
         />
-        <Itinerary events={this.state.itinerary} />
+        <Itinerary events={this.state.itinerary} locations={this.props.location.state} />
       </Container>
     );
   }

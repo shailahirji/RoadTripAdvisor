@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import "./App.css";
 class Event extends Component {
   render() {
     var time = {
@@ -8,7 +8,7 @@ class Event extends Component {
       width: "200px",
       wordWrap: "break-word",
       fontSize: 15,
-      fontFamily: "monospace",
+      // fontFamily: "monospace",
       backgroundColor: this.props.color,
       textAlign: "left",
       display: "inline-block"
