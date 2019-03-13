@@ -39,7 +39,7 @@ const MyMapComponent = compose(
       <div
         style={{
           position: "relative",
-          width: "50%",
+          width: 420,
           height: 480,
           //WebkitFilter: "drop-shadow(0px 0px 30px )",
           marginLeft: 330,
@@ -336,7 +336,7 @@ const MyMapComponent = compose(
             {props.isOpen && props.markerIndex === i && (
               <InfoWindow onCloseClick={props.onToggleOpen}>
                 <div>
-                  {place.name +" "}
+                  {place.name + " "}
                   <button
                     onClick={() =>
                       props.handleClick(

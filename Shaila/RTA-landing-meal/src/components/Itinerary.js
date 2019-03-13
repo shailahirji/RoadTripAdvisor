@@ -10,38 +10,35 @@ class Itinerary extends Component {
   render() {
     var events = this.props.events;
     var itinerary = [];
-    var locations=this.props.locations;
+    var locations = this.props.locations;
 
     var itineraryStyle = {
       position: "relative",
+      marginTop: -645,
+      marginLeft: 750,
+      width: 210,
       height: 480,
-      width: 300,
-      padding: 0,
       backgroundColor: "rgba(225, 225, 225, 0.43)",
-      WebkitFilter: "drop-shadow(0px 0px 5px #666)",
-      filter: "drop-shadow(0px 5px 5px #666)",
-      //margin: 30,
-      //marginLeft: 100,
-      marginLeft: 885,
-      marginTop: -742,
+      //marginTop: -510,
       overflow: "scroll"
     };
 
-    
-    //add locations to the events array before printing it out 
-    itinerary.push(  <div>
-      <Event
-        key={0}
-        event={"Start Destination: "+locations.from}
-        color="#ffc107"
-      />
-      <br />
-    </div>);
+    //add locations to the events array before printing it out
+    itinerary.push(
+      <div>
+        <Event
+          key={0}
+          event={"Start Destination: " + locations.from}
+          color="#ffc107"
+        />
+        <br />
+      </div>
+    );
     for (var i = 0; i < events.length; i++) {
       itinerary.push(
         <div>
           <Event
-            key={i+1}
+            key={i + 1}
             event={events[i].event}
             lat={events[i].pos.lat}
             long={events[i].pos.long}
@@ -52,14 +49,16 @@ class Itinerary extends Component {
       );
     }
 
-    itinerary.push(  <div>
-      <Event
-        key={events.length+1}
-        event={"End Destination: "+locations.to}
-        color="#ffc107"
-      />
-      <br />
-    </div>)
+    itinerary.push(
+      <div>
+        <Event
+          key={events.length + 1}
+          event={"End Destination: " + locations.to}
+          color="#ffc107"
+        />
+        <br />
+      </div>
+    );
 
     return <div style={itineraryStyle}>{itinerary}</div>;
   }
