@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 class Event extends Component {
+  
   render() {
     var time = {
       padding: "10px",
@@ -13,12 +14,16 @@ class Event extends Component {
       textAlign: "left",
       display: "inline-block"
     };
-
+    var buttonStyle={position:"fixed",
+    top:600,
+    left:200
+  }
+  
     return (
       <div>
+        {/* <p style={time}>{this.props.event}{this.props.butt}</p> */}
         <p style={time}>{this.props.event}</p>
-        {/* <p style={time}>{this.props.lat}</p> */}
-        {/* <p style={time}>{this.props.long}</p> */}
+        <button class="btn btn-warning pl-5 pr-5" disabled={false} onClick={()=>this.props.handleClick(this.props.event)}>x</button>
       </div>
     );
   }

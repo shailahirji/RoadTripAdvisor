@@ -47,4 +47,6 @@
 .distance{display:inline;}
 .ratings{display:flex;}
 
-
+body{
+width:100%;
+}
