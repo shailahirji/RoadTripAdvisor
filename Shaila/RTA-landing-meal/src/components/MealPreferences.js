@@ -157,7 +157,7 @@ this.displayOnLoad();
           handleClick={this.onMouseClickAdd}
         />
         <Itinerary events={this.state.itinerary} locations={this.props.location.state} handleClick={this.removeEvent} />
-        <button type="button" style={buttonStyle} class="btn btn-warning pl-5 pr-5" disabled={!this.addToDB} onClick={this.addTrip}>Save Trip</button>
+        <button type="button" style={buttonStyle} class="btn btn-warning pl-5 pr-5" disabled={!this.addToDB} onClick={this.addTrip}>Save Trip Changes</button>
       </Container>
     );
   }

@@ -32,7 +32,7 @@ class Itinerary extends Component {
         key={0}
         event={"Start Destination: "+locations.from}
         color="#ffc107"
-        disable='true'
+        showButton={false}
         />
       <br />
     </div>);
@@ -45,8 +45,7 @@ class Itinerary extends Component {
             lat={events[i].pos.lat}
             long={events[i].pos.long}
             color="#ffc107"
-            disable='true'
-            //butt={<button disabled={false} onClick={this.props.handleClick}>x</button>}
+            showButton={true}
             handleClick={this.props.handleClick}
           />
           <br />
@@ -59,7 +58,7 @@ class Itinerary extends Component {
         key={events.length+1}
         event={"End Destination: "+locations.to}
         color="#ffc107"
-        disable='true'
+        showButton={false}
       />
       <br />
     </div>)

@@ -3,27 +3,29 @@ import "./App.css";
 class Event extends Component {
   
   render() {
-    var time = {
+    var eventStyle = {
       padding: "10px",
       margin: "5px",
-      width: "200px",
+      width: "300px",
       wordWrap: "break-word",
       fontSize: 15,
-      // fontFamily: "monospace",
       backgroundColor: this.props.color,
       textAlign: "left",
       display: "inline-block"
     };
-    var buttonStyle={position:"fixed",
-    top:600,
-    left:200
-  }
-  
+
+
+  let status=this.props.showButton;
+
     return (
       <div>
-        {/* <p style={time}>{this.props.event}{this.props.butt}</p> */}
-        <p style={time}>{this.props.event}</p>
-        <button class="btn btn-warning pl-5 pr-5" disabled={false} onClick={()=>this.props.handleClick(this.props.event)}>x</button>
+    
+      {status? ( 
+        <div><p style={eventStyle}>{this.props.event} {<button class="btn btn-warning pl-1 pr-1" onClick={()=>this.props.handleClick(this.props.event)}><i class="fa fa-trash"></i></button>}</p>     
+        </div>
+        ):(<p style={eventStyle}>{this.props.event}</p>
+       )}
+    
       </div>
     );
   }
