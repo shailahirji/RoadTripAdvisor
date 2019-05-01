@@ -34,7 +34,7 @@ class LogIn extends Component {
 
       renderRedirectToLogin() {
           if(this.state.redirectLogin){
-            return <Redirect to={{ pathname: "/StartTripping"}} />;
+            return <Redirect to={{ pathname: "/Profile"}} />;
           }
       }
 
