@@ -4,14 +4,14 @@ import { Badge } from "reactstrap";
 import { Calendar } from "react-date-range";
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import "bootstrap-daterangepicker/daterangepicker.css";
-import { sendLocation } from "./../actions";
+import { sendLocation } from "../actions";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-
 import MapContainer from "./MapContainer.js";
+import Header from "./Header.js";
 import LocationSearchInput from "./LocationSearchInput";
 
-class Home extends Component {
+class StartTrip extends Component {
   state = {
     from: "",
     to: "",
@@ -78,9 +78,10 @@ class Home extends Component {
 
   render() {
     const isEnabled = this.state.validOrigin && this.state.validDestination;
-    console.log("HEHEH ", isEnabled);
+    // console.log("HEHEH ", isEnabled);
     return (
       <div class="here otherBack">
+      <Header />
         <div className="text-center">
           <div className="landingpage-style">
             <h1 className="roadTripAdvisor">Road Trip Advisor</h1>
@@ -98,6 +99,7 @@ class Home extends Component {
                     <div class="row">
                       <div class="col-md-3">
                         <div class="form-group ">
+                
                           {/* <input type="Location" onChange={(event) => this.handleLocations(event)} class="form-control" id="from" placeholder="Starting From" /> */}
                           <LocationSearchInput
                             handleSelect={this.handleSelectOrigin}
@@ -175,4 +177,4 @@ class Home extends Component {
   }
 }
 
-export default connect()(Home);
+export default connect()(StartTrip);

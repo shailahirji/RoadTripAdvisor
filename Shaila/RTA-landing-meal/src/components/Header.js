@@ -8,7 +8,7 @@ class Header extends Component {
         <nav className="navbar navbar-expand-lg ">
           {" "}
           {/* Nav has a set of proprieties that need to be set.*/}
-          <Link className="navbar-brand " to="/">
+          <Link className="navbar-brand " to="/StartTripping">
             RTA
           </Link>
           <button
@@ -24,10 +24,10 @@ class Header extends Component {
           </button>
           <div className="collapse navbar-collapse " id="navbarNavAltMarkup">
             <div className="navbar-nav ">
-              <Link className="nav-item nav-link active" to="/">
+              <Link className="nav-item nav-link active" to="/StartTripping">
                 Home <span className="sr-only">(current)</span>
               </Link>
-              <Link className="nav-item nav-link" to="Profile">
+              <Link className="nav-item nav-link" to="/Profile">
                 Profile
               </Link>
             </div>

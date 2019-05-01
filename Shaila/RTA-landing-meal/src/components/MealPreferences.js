@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 // import {Container, Col, Row,Button} from 'reactstrap'
+import Header from "./Header.js";
 import { Container } from "reactstrap";
 import {Stitch,AnonymousCredential, RemoteMongoClient} from "mongodb-stitch-browser-sdk";
 import "./App.css";
 import MealMap from "./MealMap.js";
 import MealCard from "./MealCard.js";
-import Card from "./Card.js";
 import Itinerary from "./Itinerary";
 
 class MealPreferences extends React.Component {
@@ -40,7 +40,6 @@ this.db=mongodb.db("rta");
 this.displayOnLoad();
 
   }
-
   displayOnLoad(){
     //Anonymously log in and display cmments on load 
     this.client.auth.loginWithCredential(new AnonymousCredential()).then(console.log("success!")).catch(console.error);
@@ -135,13 +134,21 @@ this.displayOnLoad();
       top:600,
       left:200
     }
+    var mealCard=
+    {alignItems:"center",
+    justifyContent:"center",
+    display: "flex",
+    flexDirection: "row",
+  position:"relative"}
+
     return (
-      <Container>
-        {/* <div>
-          <Button style={buttonStyle} >Meal</Button>
-          <Button style={buttonStyle} onClick={this.displayCard('travelers') } >Travelers</Button>
-         </div> */}
+      <div class="center-text">
+      <Header/>
+      <Container >
+      <p></p>
+
         <MealCard
+          style={mealCard}
           color="#ffc107"
           getKeywordList={this.selectedKeywords}
           getPrice={this.selectPrice}
@@ -156,9 +163,13 @@ this.displayOnLoad();
           locations={this.props.location.state}
           handleClick={this.onMouseClickAdd}
         />
-        <Itinerary events={this.state.itinerary} locations={this.props.location.state} handleClick={this.removeEvent} />
         <button type="button" style={buttonStyle} class="btn btn-warning pl-5 pr-5" disabled={!this.addToDB} onClick={this.addTrip}>Save Trip Changes</button>
       </Container>
+      <div style={mealCard}>
+      <Itinerary  events={this.state.itinerary} locations={this.props.location.state} handleClick={this.removeEvent} />
+      </div>
+      </div>
+     
     );
   }
 }

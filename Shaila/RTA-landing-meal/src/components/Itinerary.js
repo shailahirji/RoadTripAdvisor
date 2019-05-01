@@ -15,14 +15,20 @@ class Itinerary extends Component {
     var locations=this.props.locations;
 
     var itineraryStyle = { 
-     overflow: "scroll",
+      
+      // height: "relative",
+      // width: 390,
+      overflow: "scroll",
       backgroundColor: "rgba(225, 225, 225, 0.43)",
-      position: "absolute",
-       height:479,
-      padding:10,
-      width: "35%",
-      top:"7%",
-      right:"-10%",
+      WebkitFilter: "drop-shadow(0px 0px 5px #666)",
+      filter: "drop-shadow(0px 0px 5px #666)",
+      margin: -3,
+      //marginLeft: -59,
+      position: "relative",
+      width: '26%',
+      height: 477,
+      marginLeft:760,
+      marginTop: -885
     };
 
     
