@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Select from "react-select";
 // import {Container, Col, Row,Button} from 'reactstrap'
 import { Container } from "reactstrap";
 import {
@@ -25,13 +26,14 @@ class MealPreferences extends React.Component {
       itinerary: [],
       userID: "",
       addToDB: false,
-      trips: [],
+      tripNames: [],
       savedTrips: []
     };
     this.card = null;
     this.onMouseClickAdd = this.onMouseClickAdd.bind(this);
     this.addTrip = this.addTrip.bind(this);
     this.removeEvent = this.removeEvent.bind(this);
+    this.loadSavedTrips = this.loadSavedTrips.bind(this);
   }
 
   componentDidMount() {
@@ -49,13 +51,7 @@ class MealPreferences extends React.Component {
     this.displayOnLoad();
 
     //Load saved trips into savedTrips array
-    this.db
-      .collection("trip")
-      .find({}, { tripname: 1, _id: 0 })
-      .toArray()
-      .then(savedTrips => {
-        this.setState({ savedTrips });
-      });
+    this.loadSavedTrips();
   }
 
   displayOnLoad() {
@@ -90,6 +86,11 @@ class MealPreferences extends React.Component {
     }
 
     // Load saved trips into savedTrips array
+    this.loadSavedTrips();
+  }
+
+  // Load saved trips into savedTrips array and trip names into tripNames array
+  loadSavedTrips() {
     this.db
       .collection("trip")
       .find({}, { tripname: 1, _id: 0 })
@@ -167,6 +168,7 @@ class MealPreferences extends React.Component {
   };
 
   render() {
+    var selectStyle = { position: "fixed", top: 700, left: 200 };
     var buttonStyle = { position: "fixed", top: 600, left: 200 };
     return (
       <Container>
@@ -203,13 +205,17 @@ class MealPreferences extends React.Component {
         >
           Save Trip
         </button>
-        {console.log("test2")}
-        {console.log(this.state.savedTrips[0])}
-        {this.state.savedTrips.map(trip => {
-          {
-            console.log(trip.tripname);
-          }
-        })}
+        <form style={selectStyle}>
+          <select>
+            /* pass OnChange to handle changes in the form */
+            {this.state.savedTrips.map(trip => {
+              return <option value={trip.tripname}>{trip.tripname}</option>;
+            })}
+          </select>
+          <button type="button" class="btn btn-warning pl-5 pr-5">
+            Load
+          </button>
+        </form>
       </Container>
     );
   }
