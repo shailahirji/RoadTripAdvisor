@@ -26,14 +26,17 @@ class MealPreferences extends React.Component {
       itinerary: [],
       userID: "",
       addToDB: false,
-      tripNames: [],
-      savedTrips: []
+      savedTrips: [],
+      selectedTrip: "",
+      location: this.props.location.state
     };
     this.card = null;
     this.onMouseClickAdd = this.onMouseClickAdd.bind(this);
     this.addTrip = this.addTrip.bind(this);
+    this.loadTrip = this.loadTrip.bind(this);
     this.removeEvent = this.removeEvent.bind(this);
     this.loadSavedTrips = this.loadSavedTrips.bind(this);
+    this.handleLoadChange = this.handleLoadChange.bind(this);
   }
 
   componentDidMount() {
@@ -63,7 +66,7 @@ class MealPreferences extends React.Component {
   }
 
   addTrip() {
-    const locations = this.props.location.state;
+    const locations = this.state.location;
     //insert the todo into the remote stitch db
     //then re query the db and display the new todos
     // this.db.collection("trip").insertOne({"ownder_id":this.client.auth.user.id,"tripname":locations.from+"-"+locations.to,
@@ -167,8 +170,34 @@ class MealPreferences extends React.Component {
     });
   };
 
+  handleLoadChange = event => {
+    this.setState({ selectedTrip: event.target.value });
+  };
+
+  loadTrip() {
+    console.log("Load the Damn Trip!");
+
+    console.log(this.state.selectedTrip);
+
+    var i;
+    for (i = 0; i < this.state.savedTrips.length; i++) {
+      console.log(this.state.savedTrips[i].tripname);
+      if (this.state.selectedTrip == this.state.savedTrips[i].tripname) {
+        var newLocation = this.state.location;
+        newLocation.from = this.state.savedTrips[i].from;
+        newLocation.to = this.state.savedTrips[i].to;
+
+        this.setState({
+          itinerary: this.state.savedTrips[i].waypoints,
+          location: newLocation
+        });
+        break;
+      }
+    }
+  }
+
   render() {
-    var selectStyle = { position: "fixed", top: 700, left: 200 };
+    var selectStyle = { position: "fixed", top: 600, left: 400 };
     var buttonStyle = { position: "fixed", top: 600, left: 200 };
     return (
       <Container>
@@ -188,12 +217,12 @@ class MealPreferences extends React.Component {
           price={this.state.price_range}
           reviews={this.state.ratings}
           radius={this.state.distance}
-          locations={this.props.location.state}
+          locations={this.state.location}
           handleClick={this.onMouseClickAdd}
         />
         <Itinerary
           events={this.state.itinerary}
-          locations={this.props.location.state}
+          locations={this.state.location}
           handleClick={this.removeEvent}
         />
         <button
@@ -206,13 +235,16 @@ class MealPreferences extends React.Component {
           Save Trip
         </button>
         <form style={selectStyle}>
-          <select>
-            /* pass OnChange to handle changes in the form */
+          <select name="trip" onChange={this.handleLoadChange}>
             {this.state.savedTrips.map(trip => {
               return <option value={trip.tripname}>{trip.tripname}</option>;
             })}
           </select>
-          <button type="button" class="btn btn-warning pl-5 pr-5">
+          <button
+            type="button"
+            class="btn btn-warning pl-5 pr-5"
+            onClick={this.loadTrip}
+          >
             Load
           </button>
         </form>
