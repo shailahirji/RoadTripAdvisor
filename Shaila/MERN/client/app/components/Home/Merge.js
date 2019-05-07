@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
-import { Redirect } from "react-router-dom";
 import {getFromStorage,setInStorage} from '../../utils/storage';
 
-class Home extends Component {
+class Merge extends Component {
   constructor(props) {
     super(props);
 
@@ -18,7 +17,13 @@ class Home extends Component {
       signUpPassword: '',
       firstName:'',
       lastName:'' ,
-    redirect:false  };
+      startDestError: '',
+      endDestError: '',
+      tripError:'',
+      startDest:'',
+      endDest:''  ,
+     tripOwnerID:'',
+    someDetails:'' };
     this.onTextboxChangeSignInEmail = this.onTextboxChangeSignInEmail.bind(this);
     this.onTextboxChangeSignInPassword = this.onTextboxChangeSignInPassword.bind(this);
     this.onTextboxChangeSignUpEmail = this.onTextboxChangeSignUpEmail.bind(this);
@@ -28,6 +33,10 @@ class Home extends Component {
      this.onSignUp = this.onSignUp.bind(this);
      this.onSignin = this.onSignin.bind(this);
      this.logout = this.logout.bind(this);
+     this.onTextboxChangeStartDest = this.onTextboxChangeStartDest.bind(this);
+     this.onTextboxChangeEndDest = this.onTextboxChangeEndDest.bind(this);
+      this.onEnterTrip = this.onEnterTrip.bind(this);
+      this.onTextboxChangeSomeDetails=this.onTextboxChangeSomeDetails.bind(this);
 
   }
 
@@ -55,12 +64,12 @@ class Home extends Component {
     }
  }
 
- renderRedirect() {
+ onTextboxChangeSomeDetails(event) {
+    this.setState({
+      someDetails: event.target.value,
+    });
 
-  if (this.state.redirect) {
-    return <Redirect to={{ pathname: "/Account" }} />;
   }
-};
 
   onTextboxChangeSignInEmail(event) {
     this.setState({
@@ -124,7 +133,6 @@ class Home extends Component {
           signInEmail:'',
           signInPassword:'',
           token:json.token,
-          redirect:true
         });
       } else{
         this.setState({
@@ -205,6 +213,68 @@ class Home extends Component {
     }
   }
 
+  onTextboxChangeStartDest(event) {
+    this.setState({
+      startDest: event.target.value,
+    });
+  }
+
+  onTextboxChangeEndDest(event) {
+    this.setState({
+      endDest: event.target.value,
+    });
+  }
+
+  onEnterTrip(){
+    //grab state 
+    //post request to backend  
+    const{startDest,endDest,someDetails}=this.state;
+    this.setState({isLoading:true,});
+
+    //add them to array 
+    let detailsArray=someDetails.split(",");
+    console.log(detailsArray)
+    
+    //from storage get the token 
+    const obj=getFromStorage('the_main_app');
+
+    if(obj && obj.token){
+        const {token}=obj;
+        
+    //post request to backend , creates API request to out end point
+    fetch('/api/account/addTrip',{ 
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({
+        startDest:startDest,
+        endDest:endDest,
+        token:token,
+        waypoints:detailsArray
+      }),
+    }).then(res=>res.json())
+    .then(json=>{ 
+      if(json.success){
+        setInStorage('the_main_app',{token:json.token});
+        this.setState({
+          tripError:json.message,
+          isLoading:false,
+          startDest:'',
+          endDest:'',
+          token:json.token,
+          waypoints:[]
+        });
+      } else{
+        this.setState({
+        tripError:json.message,
+          isLoading:false,
+        });
+      }
+    });
+  }
+  }
+
 
   render() {
     const{
@@ -217,14 +287,19 @@ class Home extends Component {
       signUpPassword,
       signUpError,
       firstName,
-      lastName
+      lastName,
+      tripError, 
+    startDest,
+    someDetails,
+    endDest,
+    
     }= this.state;
 
     if(isLoading){
       return (<div><p>Loading...</p></div>);
     }
 
-    
+    if(!token){
       return(
         <div>
           <div>
@@ -280,15 +355,45 @@ class Home extends Component {
               onChange={this.onTextboxChangeSignUpLastName}
             /><br />
             <button onClick={this.onSignUp}>Sign Up</button>
-            {this.renderRedirect()}
           </div>
         </div>
       );
-    
+    }
 
-  
-    
+    return (
+      <div>
+        
+          Account
+          <button onClick={this.logout}>Logout</button>
+          {(tripError) ? (<p>{tripError}</p>):(null)}
+          <p>Start Dest</p>
+          <input
+            type="text"
+            placeholder="start dest"
+            value={startDest}
+            onChange={this.onTextboxChangeStartDest}
+          />
+          <br />
+          <input
+            type="text"
+            placeholder="End dest"
+            value={endDest}
+            onChange={this.onTextboxChangeEndDest}
+          />
+          <br />
+          <br />
+          <input
+            type="text"
+            placeholder="some details"
+            value={someDetails}
+            onChange={this.onTextboxChangeSomeDetails}
+          />
+          <br />
+          <button onClick={this.onEnterTrip}>Add Trip</button>
+            
+      </div>
+    );
   }
 }
 
-export default Home;
+export default Merge;

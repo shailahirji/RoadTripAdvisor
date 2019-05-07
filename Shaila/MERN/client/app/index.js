@@ -12,6 +12,9 @@ import App from './components/App/App';
 import NotFound from './components/App/NotFound';
 
 import Home from './components/Home/Home';
+import Account from './components/Home/Account';
+
+//import Merge from './components/Home/Merge';
 
 import HelloWorld from './components/HelloWorld/HelloWorld';
 
@@ -22,6 +25,7 @@ render((
     <App>
       <Switch>
         <Route exact path="/" component={Home}/>
+        <Route exact path="/Account" component={Account}/>
         <Route path="/helloworld" component={HelloWorld}/>
         <Route component={NotFound}/>
       </Switch>
