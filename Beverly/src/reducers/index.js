@@ -1,15 +1,7 @@
-import  {createStore, applyMiddleware, combineReducers, compose} from 'redux';
-import {mapReducer} from './map-reducer';
-import thunk from 'redux-thunk'
-
-
-
-export const init = () => {
-
-    const reducer = combineReducers({mapReducer});
-    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-
-    const store =createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
-
-    return store;
-}
+import { combineReducers } from "redux";
+import authReducer from "./authReducers";
+import errorReducer from "./errorReducers";
+export default combineReducers({
+  auth: authReducer,
+  errors: errorReducer
+});

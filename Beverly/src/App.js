@@ -1,50 +1,55 @@
-import React, { Component, } from 'react';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Map, GoogleApiWrapper } from 'google-maps-react';
+import jwt_decode from "jwt-decode";
+import setAuthToken from "./actions/setAuthToken";
+import { setCurrentUser, logoutUser } from "./actions/authActions";
 
-import { Provider } from 'react-redux';
+import { Provider } from "react-redux";
+import store from './store/store';
 
-import Home from './components/Home.js';
-import Header from './components/Header.js';
-import Profile from './components/Profile.js';
-import MapContainer from './components/MapContainer';
-import MyMapComponent from './components/MyMapComponent';
-import LocationSearchInput from './components/LocationSearchInput';
+import Register from './authComponents/Register';
+import Login from './authComponents/Login';
+import Landing from './layout/Landing';
+import Navbar from './layout/Navbar';
+import PrivateRoute from "./private-route/PrivateRoute";
+import Dashboard from './dashboard/Dashboard';
 
-
-const mapStyles = {
-  width: '100%',
-  height: '100%'
-};
-
-const store = require('./reducers').init();
-
-class App extends Component {
-  render() {
-
-    return <Provider store={store}>
-      <BrowserRouter>
-        <div>
-          <Header />
-          <div className="bg-main">
-
-            <Switch>
-
-              <Route exact path="/" component={Home} />
-              <Route exact path="/Map" component={MapContainer} />
-              <Route exact path="/Test" component={LocationSearchInput} />
-
-
-            </Switch>
-          </div>
-        </div>
-      </BrowserRouter>
-    </Provider>;
-
-
-
+// Check for token to keep user logged in
+if (localStorage.jwtToken) {
+  // Set auth token header auth
+  const token = localStorage.jwtToken;
+  setAuthToken(token);
+  // Decode token and get user info and exp
+  const decoded = jwt_decode(token);
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentUser(decoded));
+// Check for expired token
+  const currentTime = Date.now() / 1000; // to get in milliseconds
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser());
+    // Redirect to login
+    window.location.href = "./login";
   }
+}
+
+function App() {
+  return (
+    <Provider store={store}>
+    <Router>
+        <div className="App">
+          <Navbar />
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
+          <Switch>
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+            </Switch>
+        </div>
+      </Router>
+      </Provider>
+  );
 }
 
 export default App;
