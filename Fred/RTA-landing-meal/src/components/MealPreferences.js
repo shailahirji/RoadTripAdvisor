@@ -175,13 +175,8 @@ class MealPreferences extends React.Component {
   };
 
   loadTrip() {
-    console.log("Load the Damn Trip!");
-
-    console.log(this.state.selectedTrip);
-
     var i;
     for (i = 0; i < this.state.savedTrips.length; i++) {
-      console.log(this.state.savedTrips[i].tripname);
       if (this.state.selectedTrip == this.state.savedTrips[i].tripname) {
         var newLocation = this.state.location;
         newLocation.from = this.state.savedTrips[i].from;

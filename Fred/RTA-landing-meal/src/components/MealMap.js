@@ -54,11 +54,14 @@ const MyMapComponent = compose(
     componentWillMount() {
       this.getGeoLocation();
     },
+    componentWillUpdate() {
+      this.getGeoLocation();
+    },
     async getGeoLocation() {
       //this method gets the geolocation coordinates by calling getLocationCoordinates while passing location names as input from user
       if (this.props.locations) {
         const locations = this.props.locations; //passing array with start and end destination names
-        route_markers = []; //used to store the geolocation
+        var route_markers = []; //used to store the geolocation
         const from = await this.getLocationCoordinates(locations.from); //returns coordinate of start dest
         const to = await this.getLocationCoordinates(locations.to); //returns coordinates of end dest
         route_markers.push(from); //add to the array
@@ -67,7 +70,6 @@ const MyMapComponent = compose(
         this.componentDidMount(route_markers);
       }
     },
-
     getLocationCoordinates(location) {
       //computes the geocoordinates of given locations using googles Geocoder
       return new Promise((resolve, reject) => {
@@ -100,7 +102,7 @@ const MyMapComponent = compose(
               route_markers[1].lat,
               route_markers[1].lng
             ),
-            travelMode: google.maps.TravelMode.DRIVING
+            travelMode: google.maps.TravelMode.WALKING
           },
           (result, status) => {
             if (status === google.maps.DirectionsStatus.OK) {
@@ -230,12 +232,10 @@ const MyMapComponent = compose(
   if (props.places != null)
     // if(route_markers[1]!== undefined)
     var target = new google.maps.LatLng(center_lat, center_lng); //this needs to update with the bound and not be fixed like this
-  console.log("TARGET:" + target);
   if (props.defaultCenter !== undefined) {
     target = props.defaultCenter;
   }
 
-  console.log(center);
   var option = []; //new array to store results based on search criteria
   if (props.places) {
     //traverse through the place array, if there is a match between radius , price level. Enables makers to show without other information
@@ -374,8 +374,6 @@ export default class MealMap extends React.Component {
     var locations = this.props.locations;
 
     if (searchCriteria.length !== 0 || radius !== 0 || price !== 0) {
-      console.log(searchCriteria + " " + radius + " " + price + " " + ratings);
-
       searchCriteria.map(select => {
         //sending an array of user's meal type selection for processing into our component
         types.push(select.label);
