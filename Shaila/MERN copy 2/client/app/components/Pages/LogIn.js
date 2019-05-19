@@ -20,6 +20,7 @@ class Login extends Component {
     this.onTextboxChangeSignInPassword = this.onTextboxChangeSignInPassword.bind(this);
     this.onClickSignUp = this.onClickSignUp.bind(this);
     this.onSignin = this.onSignin.bind(this);
+    
 
   }
 
@@ -50,7 +51,7 @@ class Login extends Component {
  renderRedirect() {
 
   if (this.state.redirect) {
-    return <Redirect to={{ pathname: "/Account" }} />;
+    return <Redirect to={{ pathname: "/StartTrip" }} />;
   }
 };
 
@@ -132,11 +133,6 @@ var inputStyle={ opacity:0.7}
       signInError, 
       signInEmail,
       signInPassword,
-      signUpEmail,
-      signUpPassword,
-      signUpError,
-      firstName,
-      lastName
     }= this.state;
 
     if(isLoading){

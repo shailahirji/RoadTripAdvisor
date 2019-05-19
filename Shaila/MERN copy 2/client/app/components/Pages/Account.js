@@ -1,3 +1,7 @@
+/*
+!!!!!!!!!!!!!!NOT PART OF RTA!!!!!!!!!
+*/
+
 import React, { Component } from 'react';
 import 'whatwg-fetch';
 import { Redirect } from "react-router-dom";
