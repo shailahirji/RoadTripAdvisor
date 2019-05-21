@@ -15,7 +15,8 @@ class StartTrip extends Component {
       to: "",
       redirect: false,
       validOrigin: false,
-      validDestination: false
+      validDestination: false,
+      selectedTrip: ""
     };
 
     this.handleLocations = this.handleLocations.bind(this);
