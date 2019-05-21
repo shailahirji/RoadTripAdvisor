@@ -15,7 +15,7 @@ const WaypointSchema = new mongoose.Schema({
   }
 });
 
-const TripSchema = new mongoose.Schema({
+const TripFSchema = new mongoose.Schema({
   userId: {
     type: String,
     default: ""
@@ -30,4 +30,4 @@ const TripSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("Trip", TripSchema);
+module.exports = mongoose.model("TripF", TripFSchema);
