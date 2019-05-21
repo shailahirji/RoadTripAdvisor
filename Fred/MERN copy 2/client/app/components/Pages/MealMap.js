@@ -390,7 +390,6 @@ export default class MealMap extends React.Component {
           locations={locations}
           handleClick={this.props.handleClick}
         />
-        
       );
     }
 
@@ -403,7 +402,6 @@ export default class MealMap extends React.Component {
         radius="0"
         handleClick={() => console.log("Banana")}
       />
-      
     );
   }
 }

@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import DateRangePicker from "react-bootstrap-daterangepicker";
 // import "bootstrap-daterangepicker/daterangepicker.css";
 import { Redirect } from "react-router-dom";
-import Header from '../Header/Header';
+import Header from "../Header/Header";
 import LocationSearchInput from "../Functionality/LocationSearchInput";
 
 class StartTrip extends Component {
-
-
   constructor(props) {
     super(props);
 
@@ -16,46 +14,41 @@ class StartTrip extends Component {
       to: "",
       redirect: false,
       validOrigin: false,
-      validDestination: false};
- 
+      validDestination: false
+    };
+
     this.handleLocations = this.handleLocations.bind(this);
     this.handleLocationSubmit = this.handleLocationSubmit.bind(this);
     this.handleDestination = this.handleDestination.bind(this);
     this.handleOrigin = this.handleOrigin.bind(this);
-     this.handleSelectOrigin = this.handleSelectOrigin.bind(this);
-     this.handleSelectDestination = this.handleSelectDestination.bind(this);
-     this.handleSelectOrigin = this.handleSelectOrigin.bind(this);
-     this.validateAddress = this.validateAddress.bind(this);
-     this.renderRedirect = this.renderRedirect.bind(this);
-     
-  
-
+    this.handleSelectOrigin = this.handleSelectOrigin.bind(this);
+    this.handleSelectDestination = this.handleSelectDestination.bind(this);
+    this.handleSelectOrigin = this.handleSelectOrigin.bind(this);
+    this.validateAddress = this.validateAddress.bind(this);
+    this.renderRedirect = this.renderRedirect.bind(this);
   }
 
-
-
-
-  handleLocations(location){
+  handleLocations(location) {
     if (location.target.id == "from") {
       this.setState({ from: location.target.value });
     } else {
       this.setState({ to: location.target.value });
     }
     // console.log('HEYY ',location.target.id)
-  };
+  }
 
-  handleLocationSubmit(){
+  handleLocationSubmit() {
     //this.props.dispatch(sendLocation(this.state));
     this.setState({ redirect: true });
     console.log("The Locations are ", this.state);
-  };
+  }
 
-  handleDestination (address) {
+  handleDestination(address) {
     this.setState({ to: address });
-  };
-  handleOrigin (address){
+  }
+  handleOrigin(address) {
     this.setState({ from: address });
-  };
+  }
 
   handleSelectOrigin(address) {
     if (this.validateAddress(address)) {
@@ -65,8 +58,8 @@ class StartTrip extends Component {
       console.log("HELAS ORIGIN");
       this.setState({ validOrigin: false });
     }
-  };
-  handleSelectDestination (address){
+  }
+  handleSelectDestination(address) {
     if (this.validateAddress(address)) {
       this.handleDestination(address);
       this.setState({ validDestination: true });
@@ -74,29 +67,29 @@ class StartTrip extends Component {
       console.log("HELAS");
       this.setState({ validDestination: false });
     }
-  };
+  }
 
-  validateAddress (address) {
+  validateAddress(address) {
     const addressCopy = address.split(",");
     if (addressCopy[addressCopy.length - 1].trim() !== "USA") {
       return false;
     } else {
       return true;
     }
-  };
+  }
 
-  renderRedirect()  {
+  renderRedirect() {
     if (this.state.redirect) {
       return <Redirect to={{ pathname: "/mealpref", state: this.state }} />;
     }
-  };
+  }
 
   render() {
     const isEnabled = this.state.validOrigin && this.state.validDestination;
     // console.log("HEHEH ", isEnabled);
     return (
       <div class="here otherBack">
-      <Header />
+        <Header />
         <div className="text-center">
           <div className="landingpage-style">
             <h1 className="roadTripAdvisor">Road Trip Advisor</h1>
@@ -114,7 +107,6 @@ class StartTrip extends Component {
                     <div class="row">
                       <div class="col-md-3">
                         <div class="form-group ">
-                
                           {/* <input type="Location" onChange={(event) => this.handleLocations(event)} class="form-control" id="from" placeholder="Starting From" /> */}
                           <LocationSearchInput
                             handleSelect={this.handleSelectOrigin}

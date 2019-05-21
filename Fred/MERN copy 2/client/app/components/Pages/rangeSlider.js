@@ -11,20 +11,18 @@ class RangeSlider extends React.Component {
     this.handleChangeStart = this.handleChangeStart.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeComplete = this.handleChangeComplete.bind(this);
-   
-
   }
 
   handleChangeStart() {
     console.log("change event starterd");
   } //why do we need this?
 
-  handleChange (value){
+  handleChange(value) {
     this.setState({
       value: value
     });
     this.props.action(value);
-  };
+  }
 
   handleChangeComplete() {
     console.log("change event completed");
