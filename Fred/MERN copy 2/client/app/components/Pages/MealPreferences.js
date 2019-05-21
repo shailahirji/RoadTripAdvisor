@@ -121,13 +121,13 @@ class MealPreferences extends React.Component {
   onMouseClickAdd(lat, lng, name) {
     this.addToDB = true;
     var newItinerary = this.state.itinerary;
-    newItinerary.push({ event: name, pos: { lat: lat, lng: lng } });
+    newItinerary.push({ event: name, lat: lat, lng: lng });
     this.setState({
       itinerary: newItinerary
     });
     for (var i = 0; i < this.state.itinerary.length; i++) {
-      console.log(this.state.itinerary[i].pos.lat);
-      console.log(this.state.itinerary[i].pos.lng);
+      console.log(this.state.itinerary[i].lat);
+      console.log(this.state.itinerary[i].lng);
       console.log(this.state.itinerary[i].event);
     }
   }
@@ -146,8 +146,8 @@ class MealPreferences extends React.Component {
       itinerary: newItinerary
     });
     for (var i = 0; i < this.state.itinerary.length; i++) {
-      console.log(this.state.itinerary[i].pos.lat);
-      console.log(this.state.itinerary[i].pos.lng);
+      console.log(this.state.itinerary[i].lat);
+      console.log(this.state.itinerary[i].lng);
       console.log(this.state.itinerary[i].event);
     }
   }
@@ -217,7 +217,8 @@ class MealPreferences extends React.Component {
         />
         <Itinerary
           events={this.state.itinerary}
-          locations={this.props.location.state}
+          from={this.props.location.start}
+          to={this.props.location.to}
           handleClick={this.removeEvent}
         />
         <button

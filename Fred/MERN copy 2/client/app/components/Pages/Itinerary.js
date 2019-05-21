@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Event from "./Event.js";
-// import "./App.css";
 
 class Itinerary extends Component {
   constructor(props) {
@@ -10,7 +9,8 @@ class Itinerary extends Component {
   render() {
     var events = this.props.events;
     var itinerary = [];
-    var locations = this.props.locations;
+    var from = this.props.from;
+    var to = this.props.to;
 
     var itineraryStyle = {
       overflow: "scroll",
@@ -29,7 +29,7 @@ class Itinerary extends Component {
       <div>
         <Event
           key={0}
-          event={"Start Destination: " + locations.from}
+          event={"Start Destination: " + from}
           color="#ffc107"
           showButton={false}
         />
@@ -42,8 +42,8 @@ class Itinerary extends Component {
           <Event
             key={i + 1}
             event={events[i].event}
-            lat={events[i].pos.lat}
-            long={events[i].pos.long}
+            lat={events[i].lat}
+            long={events[i].long}
             color="#ffc107"
             showButton={true}
             handleClick={this.props.handleClick}
@@ -57,7 +57,7 @@ class Itinerary extends Component {
       <div>
         <Event
           key={events.length + 1}
-          event={"End Destination: " + locations.to}
+          event={"End Destination: " + to}
           color="#ffc107"
           showButton={false}
         />
