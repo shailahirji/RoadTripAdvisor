@@ -28,7 +28,7 @@ class MealPreferences extends React.Component {
     this.card = null;
     this.onMouseClickAdd = this.onMouseClickAdd.bind(this);
     // this.addTrip=this.addTrip.bind(this);
-    this.removeEvent = this.removeEvent.bind(this);
+    this.removeWaypoint = this.removeWaypoint.bind(this);
     this.selectedKeywords = this.selectedKeywords.bind(this);
     this.selectPrice = this.selectPrice.bind(this);
     this.selectedDistance = this.selectedDistance.bind(this);
@@ -64,7 +64,6 @@ class MealPreferences extends React.Component {
   }
 
   onEnterTrip() {
-    console.log("Here");
     //grab state
     //post request to backend
     const locations = this.props.location.state;
@@ -73,27 +72,25 @@ class MealPreferences extends React.Component {
     this.setState({ isLoading: true });
 
     //add them to array
-    let detailsArray = this.state.route;
-    console.log(detailsArray);
+    let waypoints = this.state.route;
 
     //from storage get the token
     const obj = getFromStorage("the_main_app");
-    //console.log(obj.token)
 
     if (obj && obj.token) {
       const { token } = obj;
-      // console.log("inside obj and token condition")
       //post request to backend , creates API request to out end point
-      fetch("/api/account/addTrip", {
+      fetch("/api/account/savetrip", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          startDest: from,
-          endDest: to,
-          token: token,
-          waypoints: detailsArray
+          userId: token,
+          tripName: from + "-" + to,
+          from: from,
+          to: to,
+          waypoints: waypoints
         })
       })
         .then(res => res.json())
@@ -121,35 +118,22 @@ class MealPreferences extends React.Component {
   onMouseClickAdd(lat, lng, name) {
     this.addToDB = true;
     var newRoute = this.state.route;
-    newRoute.push({ event: name, lat: lat, lng: lng });
+    newRoute.push({ waypointName: name, lat: lat, lng: lng });
     this.setState({
       route: newRoute
     });
-    for (var i = 0; i < this.state.route.length; i++) {
-      console.log(this.state.route[i].lat);
-      console.log(this.state.route[i].lng);
-      console.log(this.state.route[i].event);
-    }
   }
 
-  removeEvent(name) {
+  removeWaypoint(name) {
     var newRoute = this.state.route;
-    console.log(name);
     for (var k = 0; k < newRoute.length; k++) {
-      console.log(newRoute[k].event);
-      if (newRoute[k].event === name) {
-        console.log("grapes");
+      if (newRoute[k].waypointName === name) {
         newRoute.splice(newRoute.indexOf(name), 1);
       }
     }
     this.setState({
       route: newRoute
     });
-    for (var i = 0; i < this.state.route.length; i++) {
-      console.log(this.state.route[i].lat);
-      console.log(this.state.route[i].lng);
-      console.log(this.state.route[i].event);
-    }
   }
 
   //get data back from child
@@ -219,7 +203,7 @@ class MealPreferences extends React.Component {
           waypoints={this.state.route}
           from={this.props.location.state.from}
           to={this.props.location.state.to}
-          handleClick={this.removeEvent}
+          handleClick={this.removeWaypoint}
         />
         <button
           type="button"

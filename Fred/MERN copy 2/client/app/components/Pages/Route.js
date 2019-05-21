@@ -41,7 +41,7 @@ class Route extends Component {
         <div>
           <Waypoint
             key={i + 1}
-            waypoint={waypoints[i].event}
+            waypoint={waypoints[i].waypointName}
             color="#ffc107"
             showButton={true}
             handleClick={this.props.handleClick}

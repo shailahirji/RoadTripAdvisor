@@ -1,11 +1,11 @@
-const Trip = require("../../models/TripF");
+const Trip = require("../../models/Trip");
 
 module.exports = app => {
   // Example:
-  // curl -H "Content-Type: application/json" -X POST -d '{"userId":"5ce108828f50ba37926f4aec","tripName":"Banana","waypoints":[{"waypointName":"test","lat":"123","long":"44"},{"waypointName":"test2","lat":"4245","long":"52344"}]}' http://localhost:8080/api/account/savetrip
+  // curl -H "Content-Type: application/json" -X POST -d '{"userId":"5ce108828f50ba37926f4aec","tripName":"Banana","waypoints":[{"waypointName":"test","lat":"123","lng":"44"},{"waypointName":"test2","lat":"4245","lng":"52344"}]}' http://localhost:8080/api/account/savetrip
   app.post("/api/account/savetrip", (req, res, next) => {
     const { body } = req;
-    const { userId, tripName, waypoints } = body;
+    const { userId, tripName, from, to, waypoints } = body;
 
     if (!userId) {
       return res.send({
@@ -21,7 +21,21 @@ module.exports = app => {
       });
     }
 
-    if (!waypoints || waypoints.length < 2) {
+    if (!from) {
+      return res.send({
+        success: false,
+        messages: "Error: No from, can't save trip"
+      });
+    }
+
+    if (!to) {
+      return res.send({
+        success: false,
+        messages: "Error: No to, can't save trip"
+      });
+    }
+
+    if (!waypoints) {
       return res.send({
         success: false,
         messages: "Not enough waypoints, can't save trip"
@@ -30,7 +44,7 @@ module.exports = app => {
 
     var i;
     for (i = 0; i < waypoints.length; i++) {
-      const { waypointName, lat, long } = waypoints[i];
+      const { waypointName, lat, lng } = waypoints[i];
 
       if (!waypointName) {
         return res.send({
@@ -46,10 +60,10 @@ module.exports = app => {
         });
       }
 
-      if (!long) {
+      if (!lng) {
         return res.send({
           success: false,
-          messages: "Error: Missing a waypoint long, can't save trip"
+          messages: "Error: Missing a waypoint lng, can't save trip"
         });
       }
     }
@@ -62,7 +76,7 @@ module.exports = app => {
         userId: userId,
         tripName: tripName
       },
-      { $set: { waypoints: waypoints } },
+      { $set: { waypoints: waypoints, from: from, to: to } },
       { upsert: true },
       (err, sessions) => {
         if (err) {
