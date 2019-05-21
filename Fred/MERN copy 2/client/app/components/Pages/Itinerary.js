@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Event from "./Event.js";
+import Waypoint from "./Waypoint.js";
 
 class Itinerary extends Component {
   constructor(props) {
@@ -7,7 +7,7 @@ class Itinerary extends Component {
   }
 
   render() {
-    var events = this.props.events;
+    var waypoints = this.props.waypoints;
     var itinerary = [];
     var from = this.props.from;
     var to = this.props.to;
@@ -24,26 +24,26 @@ class Itinerary extends Component {
       position: "relative"
     };
 
-    //add locations to the events array before printing it out
+    //add locations to the waypoints array before printing it out
     itinerary.push(
       <div>
-        <Event
+        <Waypoint
           key={0}
-          event={"Start Destination: " + from}
+          waypoint={"Start Destination: " + from}
           color="#ffc107"
           showButton={false}
         />
         <br />
       </div>
     );
-    for (var i = 0; i < events.length; i++) {
+    for (var i = 0; i < waypoints.length; i++) {
       itinerary.push(
         <div>
-          <Event
+          <Waypoint
             key={i + 1}
-            event={events[i].event}
-            lat={events[i].lat}
-            long={events[i].long}
+            waypoint={waypoints[i].waypoint}
+            lat={waypoints[i].lat}
+            long={waypoints[i].long}
             color="#ffc107"
             showButton={true}
             handleClick={this.props.handleClick}
@@ -55,9 +55,9 @@ class Itinerary extends Component {
 
     itinerary.push(
       <div>
-        <Event
-          key={events.length + 1}
-          event={"End Destination: " + to}
+        <Waypoint
+          key={waypoints.length + 1}
+          waypoint={"End Destination: " + to}
           color="#ffc107"
           showButton={false}
         />

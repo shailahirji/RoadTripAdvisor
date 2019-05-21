@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-// import "./App.css";
-class Event extends Component {
+
+class Waypoint extends Component {
   render() {
-    var eventStyle = {
+    var waypointStyle = {
       padding: "10px",
       margin: "5px",
       width: "300px",
@@ -19,12 +19,12 @@ class Event extends Component {
       <div>
         {status ? (
           <div>
-            <p style={eventStyle}>
-              {this.props.event}{" "}
+            <p style={waypointStyle}>
+              {this.props.waypoint}{" "}
               {
                 <button
                   class="btn btn-warning pl-1 pr-1"
-                  onClick={() => this.props.handleClick(this.props.event)}
+                  onClick={() => this.props.handleClick(this.props.waypoint)}
                 >
                   <i class="fa fa-trash" />
                 </button>
@@ -32,11 +32,11 @@ class Event extends Component {
             </p>
           </div>
         ) : (
-          <p style={eventStyle}>{this.props.event}</p>
+          <p style={waypointStyle}>{this.props.waypoint}</p>
         )}
       </div>
     );
   }
 }
 
-export default Event;
+export default Waypoint;

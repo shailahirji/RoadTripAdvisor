@@ -216,9 +216,9 @@ class MealPreferences extends React.Component {
           handleClick={this.onMouseClickAdd}
         />
         <Itinerary
-          events={this.state.itinerary}
-          from={this.props.location.start}
-          to={this.props.location.to}
+          waypoints={this.state.itinerary}
+          from={this.props.location.state.from}
+          to={this.props.location.state.to}
           handleClick={this.removeEvent}
         />
         <button
