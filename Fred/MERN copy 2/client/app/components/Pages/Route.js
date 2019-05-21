@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import Waypoint from "./Waypoint.js";
 
-class Itinerary extends Component {
+class Route extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     var waypoints = this.props.waypoints;
-    var itinerary = [];
+    var route = [];
     var from = this.props.from;
     var to = this.props.to;
 
-    var itineraryStyle = {
+    var routeStyle = {
       overflow: "scroll",
       backgroundColor: "rgba(225, 225, 225, 0.43)",
       WebkitFilter: "drop-shadow(0px 0px 5px #666)",
@@ -25,7 +25,7 @@ class Itinerary extends Component {
     };
 
     //add locations to the waypoints array before printing it out
-    itinerary.push(
+    route.push(
       <div>
         <Waypoint
           key={0}
@@ -37,7 +37,7 @@ class Itinerary extends Component {
       </div>
     );
     for (var i = 0; i < waypoints.length; i++) {
-      itinerary.push(
+      route.push(
         <div>
           <Waypoint
             key={i + 1}
@@ -53,7 +53,7 @@ class Itinerary extends Component {
       );
     }
 
-    itinerary.push(
+    route.push(
       <div>
         <Waypoint
           key={waypoints.length + 1}
@@ -65,8 +65,8 @@ class Itinerary extends Component {
       </div>
     );
 
-    return <div style={itineraryStyle}>{itinerary}</div>;
+    return <div style={routeStyle}>{route}</div>;
   }
 }
 
-export default Itinerary;
+export default Route;

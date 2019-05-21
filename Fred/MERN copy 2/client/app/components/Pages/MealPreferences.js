@@ -4,7 +4,7 @@ import { getFromStorage, setInStorage } from "../../utils/storage";
 import Header from "../Header/Header";
 import MealMap from "./MealMap.js";
 import MealCard from "./MealCard.js";
-import Itinerary from "./Itinerary";
+import Route from "./Route";
 
 class MealPreferences extends React.Component {
   constructor(props) {
@@ -15,8 +15,8 @@ class MealPreferences extends React.Component {
       distance: "any",
       ratings: "any",
       search_result: [],
-      itinerary: [],
-      changesToItinerary: false,
+      route: [],
+      changesToRoute: false,
       isLoading: true,
       token: "",
       tripError: "",
@@ -73,7 +73,7 @@ class MealPreferences extends React.Component {
     this.setState({ isLoading: true });
 
     //add them to array
-    let detailsArray = this.state.itinerary;
+    let detailsArray = this.state.route;
     console.log(detailsArray);
 
     //from storage get the token
@@ -120,35 +120,35 @@ class MealPreferences extends React.Component {
 
   onMouseClickAdd(lat, lng, name) {
     this.addToDB = true;
-    var newItinerary = this.state.itinerary;
-    newItinerary.push({ event: name, lat: lat, lng: lng });
+    var newRoute = this.state.route;
+    newRoute.push({ event: name, lat: lat, lng: lng });
     this.setState({
-      itinerary: newItinerary
+      route: newRoute
     });
-    for (var i = 0; i < this.state.itinerary.length; i++) {
-      console.log(this.state.itinerary[i].lat);
-      console.log(this.state.itinerary[i].lng);
-      console.log(this.state.itinerary[i].event);
+    for (var i = 0; i < this.state.route.length; i++) {
+      console.log(this.state.route[i].lat);
+      console.log(this.state.route[i].lng);
+      console.log(this.state.route[i].event);
     }
   }
 
   removeEvent(name) {
-    var newItinerary = this.state.itinerary;
+    var newRoute = this.state.route;
     console.log(name);
-    for (var k = 0; k < newItinerary.length; k++) {
-      console.log(newItinerary[k].event);
-      if (newItinerary[k].event === name) {
+    for (var k = 0; k < newRoute.length; k++) {
+      console.log(newRoute[k].event);
+      if (newRoute[k].event === name) {
         console.log("grapes");
-        newItinerary.splice(newItinerary.indexOf(name), 1);
+        newRoute.splice(newRoute.indexOf(name), 1);
       }
     }
     this.setState({
-      itinerary: newItinerary
+      route: newRoute
     });
-    for (var i = 0; i < this.state.itinerary.length; i++) {
-      console.log(this.state.itinerary[i].lat);
-      console.log(this.state.itinerary[i].lng);
-      console.log(this.state.itinerary[i].event);
+    for (var i = 0; i < this.state.route.length; i++) {
+      console.log(this.state.route[i].lat);
+      console.log(this.state.route[i].lng);
+      console.log(this.state.route[i].event);
     }
   }
 
@@ -215,8 +215,8 @@ class MealPreferences extends React.Component {
           locations={this.props.location.state}
           handleClick={this.onMouseClickAdd}
         />
-        <Itinerary
-          waypoints={this.state.itinerary}
+        <Route
+          waypoints={this.state.route}
           from={this.props.location.state.from}
           to={this.props.location.state.to}
           handleClick={this.removeEvent}
