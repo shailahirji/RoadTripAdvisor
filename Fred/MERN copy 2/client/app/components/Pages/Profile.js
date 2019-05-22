@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Select from "react-select";
 import Header from "../Header/Header";
 import { Redirect } from "react-router-dom";
+import { getFromStorage, setInStorage } from "../../utils/storage";
 import {
   ButtonDropdown,
   UncontrolledButtonDropdown,
@@ -9,11 +10,13 @@ import {
   DropdownItem,
   DropdownToggle
 } from "reactstrap";
+import { FusionTablesLayer } from "react-google-maps";
 
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: true,
       selectedOption: null,
       redirectNewTrip: false,
       redirectMealPref: false,
@@ -21,7 +24,7 @@ class Profile extends Component {
       from: "",
       to: "",
       trips: [],
-      userId: "5ce42aa88a6b70154383bbe9"
+      userId: ""
     };
     this.handleCreateNewTrip = this.handleCreateNewTrip.bind(this);
     this.renderRedirectToCreateNewTrip = this.renderRedirectToCreateNewTrip.bind(
@@ -31,14 +34,30 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    if (this.state.userId) {
+    const obj = getFromStorage("the_main_app");
+
+    if (obj && obj.token) {
+      const { token } = obj;
+      //verify the token
+      fetch("/api/account/verify?token=" + token)
+        .then(res => res.json())
+        .then(json => {
+          if (json.success) {
+            console.log("SUCCES");
+            this.setState({
+              userId: token,
+              isLoading: false
+            });
+          }
+        });
+
       fetch("/api/account/getuserstrips", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          userId: this.state.userId
+          userId: token
         })
       })
         .then(res => res.json())
@@ -47,10 +66,6 @@ class Profile extends Component {
             this.setState({
               trips: json.trips,
               tripsLoaded: true
-            });
-          } else {
-            this.setState({
-              tripsLoaded: false
             });
           }
         });
