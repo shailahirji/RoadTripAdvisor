@@ -4,7 +4,6 @@ import DateRangePicker from "react-bootstrap-daterangepicker";
 import { Redirect } from "react-router-dom";
 import Header from "../Header/Header";
 import LocationSearchInput from "../Functionality/LocationSearchInput";
-import TripDropDown from "./TripDropDown";
 
 class StartTrip extends Component {
   constructor(props) {
@@ -15,8 +14,7 @@ class StartTrip extends Component {
       to: "",
       redirect: false,
       validOrigin: false,
-      validDestination: false,
-      selectedTrip: ""
+      validDestination: false
     };
 
     this.handleLocations = this.handleLocations.bind(this);
@@ -181,7 +179,6 @@ class StartTrip extends Component {
             </div>
           </div>
         </div>
-        <TripDropDown userId="5ce108828f50ba37926f4aec" />
       </div>
     );
   }
