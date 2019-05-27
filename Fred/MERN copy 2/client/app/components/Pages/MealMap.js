@@ -87,6 +87,14 @@ const MyMapComponent = compose(
       });
     },
     componentDidMount(route_markers) {
+      var waypointsforroute = [];
+
+      this.props.locations.waypoints.map(waypoint => {
+        waypointsforroute.push({
+          location: new google.maps.LatLng(waypoint.lat, waypoint.lng)
+        });
+      });
+
       //this method draws the route between start and end destination
       if (route_markers) {
         const DirectionsService = new google.maps.DirectionsService();
@@ -100,7 +108,8 @@ const MyMapComponent = compose(
               route_markers[1].lat,
               route_markers[1].lng
             ),
-            travelMode: google.maps.TravelMode.DRIVING
+            waypoints: waypointsforroute,
+            travelMode: google.maps.TravelMode.WALKING
           },
           (result, status) => {
             if (status === google.maps.DirectionsStatus.OK) {

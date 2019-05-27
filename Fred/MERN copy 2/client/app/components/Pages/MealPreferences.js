@@ -204,6 +204,7 @@ class MealPreferences extends React.Component {
           radius={this.state.distance}
           locations={this.props.location.state}
           handleClick={this.onMouseClickAdd}
+          route={this.state.route}
         />
         <Route
           waypoints={this.state.route}
