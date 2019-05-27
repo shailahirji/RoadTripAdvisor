@@ -16,8 +16,6 @@ import Profile from "./components/Pages/Profile";
 
 //import Merge from './components/Home/Merge';
 
-import HelloWorld from "./components/HelloWorld/HelloWorld";
-
 import "./styles/styles.scss";
 
 render(

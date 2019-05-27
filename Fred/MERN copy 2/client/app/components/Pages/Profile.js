@@ -24,7 +24,8 @@ class Profile extends Component {
       from: "",
       to: "",
       trips: [],
-      userId: ""
+      userId: "",
+      waypoints: []
     };
     this.handleCreateNewTrip = this.handleCreateNewTrip.bind(this);
     this.renderRedirectToCreateNewTrip = this.renderRedirectToCreateNewTrip.bind(
@@ -149,17 +150,20 @@ class Profile extends Component {
               ) {
                 var to = "";
                 var from = "";
+                var waypoints = [];
                 this.state.trips.map(trip => {
                   if (trip.tripName == value.currentTarget.textContent) {
                     to = trip.to;
                     from = trip.from;
+                    waypoints = trip.waypoints;
                   }
                 });
                 this.setState({
                   tripName: value.currentTarget.textContent,
                   redirectMealPref: true,
                   to: to,
-                  from: from
+                  from: from,
+                  waypoints: waypoints
                 });
               }
             }}

@@ -61,6 +61,12 @@ class MealPreferences extends React.Component {
       //no token, not logged in
       this.setState({ isLoading: false });
     }
+
+    if (this.props.location.state.waypoints) {
+      this.setState({
+        route: this.props.location.state.waypoints
+      });
+    }
   }
 
   onEnterTrip() {
