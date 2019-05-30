@@ -54,11 +54,14 @@ const MyMapComponent = compose(
     componentWillMount() {
       this.getGeoLocation();
     },
+    componentWillUpdate() {
+      this.getGeoLocation();
+    },
     async getGeoLocation() {
       //this method gets the geolocation coordinates by calling getLocationCoordinates while passing location names as input from user
       if (this.props.locations) {
         const locations = this.props.locations; //passing array with start and end destination names
-        route_markers = []; //used to store the geolocation
+        var route_markers = []; //used to store the geolocation
         const from = await this.getLocationCoordinates(locations.from); //returns coordinate of start dest
         const to = await this.getLocationCoordinates(locations.to); //returns coordinates of end dest
         route_markers.push(from); //add to the array
@@ -89,11 +92,13 @@ const MyMapComponent = compose(
     componentDidMount(route_markers) {
       var waypointsforroute = [];
 
-      this.props.locations.waypoints.map(waypoint => {
-        waypointsforroute.push({
-          location: new google.maps.LatLng(waypoint.lat, waypoint.lng)
+      if (this.props.route) {
+        this.props.route.map(waypoint => {
+          waypointsforroute.push({
+            location: new google.maps.LatLng(waypoint.lat, waypoint.lng)
+          });
         });
-      });
+      }
 
       //this method draws the route between start and end destination
       if (route_markers) {
@@ -397,6 +402,7 @@ export default class MealMap extends React.Component {
           radius={radius * 1609} //converting into meters
           locations={locations}
           handleClick={this.props.handleClick}
+          route={this.props.route}
         />
       );
     }

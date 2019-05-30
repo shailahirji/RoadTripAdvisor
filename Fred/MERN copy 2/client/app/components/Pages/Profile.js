@@ -81,9 +81,6 @@ class Profile extends Component {
 
   renderRedirectLoadTrip() {
     if (this.state.redirectMealPref) {
-      console.log("Redirect");
-      console.log(this.state.to);
-      console.log(this.state.from);
       return <Redirect to={{ pathname: "/mealpref", state: this.state }} />;
     }
   }

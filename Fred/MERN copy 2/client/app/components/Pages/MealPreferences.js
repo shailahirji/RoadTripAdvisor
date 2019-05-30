@@ -183,6 +183,9 @@ class MealPreferences extends React.Component {
       position: "relative"
     };
 
+    console.log("ROUTE(MealPreferences): ");
+    console.log(this.state.route);
+
     return (
       <div>
         <Header />
