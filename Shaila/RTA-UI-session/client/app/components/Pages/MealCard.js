@@ -80,7 +80,7 @@ class Content extends React.Component {
     var contentStyle = {
       margin: 30,
       marginLeft: 30,
-      height: 400
+      height: 480
     };
 
     const dinning_options = [

@@ -127,12 +127,20 @@ class A extends Component {
         message="You've been successfully Registered."
     }
     var positionStyle = {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center"
-    };
-    var inputStyle = { opacity: 0.7 };
+              display: "flex",
+              flexDirection: "column",
+                    alignItems: "center",
+                    marginBottom: "200px"
+              // justifyContent: "center"
+            };
+            var positionStyle = {
+              display: "flex",
+              flexDirection: "column",
+                    alignItems: "center",
+                    marginBottom: "200px"
+              // justifyContent: "center"
+            };
+            var inputStyle = { opacity: 0.7 };
 
     const {
       isLoading,
@@ -154,7 +162,7 @@ class A extends Component {
     return (
       <div>
         <div class="here otherBack">
-          <div className="text-center">
+          {/* <div className="text-center">
             <div className="landingpage-style">
               <h1 className="roadTripAdvisor">Road Trip Advisor</h1>
               <p className="roadTripAdvisor">
@@ -162,7 +170,34 @@ class A extends Component {
                 Share Road Trip Advisor with your friends!
               </p>
             </div>
-          </div>
+          </div> */}
+
+
+   	{/* <!-- Home --> */}
+
+ 	<div class="home_about_us">
+ 		{/* <!-- Image by https://unsplash.com/@peecho --> */}
+ 		<img src='images/about_background.jpg' />
+     {/* <div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/about_background.jpg" data-speed="0.8"></div> */}
+ 		<div class="container">
+ 			<div class="row">
+ 				<div class="col">
+ 					<div class="home_content">
+ 						<div class="home_content_inner">
+ 							<div class="home_title">About us</div>
+ 							<div class="home_breadcrumbs">
+ 								<ul class="home_breadcrumbs_list">
+									<li class="home_breadcrumb"><a href="index.html">Home</a></li>
+									<li class="home_breadcrumb">About us</li>
+								</ul>
+						</div>
+					</div>
+					</div>
+ 				</div>
+ 			</div>
+ 		</div>		
+	</div>
+
 
           <div style={positionStyle} class="text-center">
             <div class="col-sm-offset-12">
